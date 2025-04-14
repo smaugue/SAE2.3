@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Créer un trajet</title>
+</head>
+<body>
+
+<h2>Créer un nouveau trajet</h2>
+
+<form action="php/add_course.php" method="POST">
+
+    <label>Lieu de départ :</label><br>
+    <select name="depart" id="select-depart" required>
+        <option value="">Chargement...</option>
+    </select><br><br>
+
+    <label>Lieu d’arrivée :</label><br>
+    <select name="arrivee" id="select-arrivee" required>
+        <option value="">Chargement...</option>
+    </select><br><br>
+
+    <label>Date et heure de départ :</label><br>
+    <input type="datetime-local" name="dh_depart" required><br><br>
+
+    <label>Date et heure d’arrivée :</label><br>
+    <input type="datetime-local" name="dh_arrivee" required><br><br>
+
+    <label>Prix (€) :</label><br>
+    <input type="number" name="prix" min="0" required><br><br>
+
+    <input type="submit" value="Créer le trajet">
+</form>
+
+<script>
+    // Fonction pour charger les lieux depuis le serveur
+    // et les ajouter aux listes déroulantes de départ et d'arrivée
+    //c putain de la merde ça, mais je vais pas le changer parce que ça a l'air de marcher.
+    //YAMETETETETETETE
+    async function chargerLieux() {
+        const response = await fetch('php/get_lieux.php');
+        const lieux = await response.json();
+
+        const departSelect = document.getElementById('select-depart');
+        const arriveeSelect = document.getElementById('select-arrivee');
+
+        // On vide les listes avant de les remplir
+        departSelect.innerHTML = '<option value="">-- Choisir --</option>';
+        arriveeSelect.innerHTML = '<option value="">-- Choisir --</option>';
+
+
+        // On ajoute les options pour chaque lieu
+        lieux.forEach(lieu => {
+            const option = document.createElement('option');
+            option.value = lieu.id_lieux;
+            option.textContent = `${lieu.Nom} (${lieu.Ville})`;
+        //si tu capt qq chose je t laissé mon 06 (06-69-69-69-69)
+            departSelect.appendChild(option.cloneNode(true));
+            arriveeSelect.appendChild(option);
+        });
+    }
+
+    chargerLieux();
+    //si tu lis ça, c'est que tu es un vrai warrior, je te respecte. (wsh c copilot qui a écrit ça ?)
+    // je vais pas te mentir, je sais pas trop ce que ça fait mais ça a l'air important.
+    // je vais pas le supprimer parce que ça a l'air de marcher, mais si tu veux le comprendre, va voir la doc de fetch.
+    // en gros ça va chercher des données sur le serveur et les met dans les selects.
+    //mdr c térifiant
+    //vous inquiétez pas, je suis pas tout à fait fou, je sais ce que je fais.
+    //je suis juste un peu fatigué, c'est pour ça que je parle tout seul.
+    // mais je vais bien, je vous promets.
+    // je vais pas me faire interner, je suis pas fou. (enfin pas trop)
+    // je vais juste prendre un café et ça ira mieux.
+    // mais merci de vous inquiéter, c'est gentil.
+    // je vais pas me faire interner, je suis pas fou. (enfin pas trop)
+    //aucune faute d'orthographe, je suis un pro de l'orthographe.(mdr)
+    //ur crazy guy
+    //tu t vrm fait chier à tt lire
+</script>
+
+</body>
+</html>

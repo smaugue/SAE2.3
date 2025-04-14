@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Ajout Domicile</title>
+</head>
+<body>
+
+<h2>Ajoutez votre domicile</h2>
+
+<form action="php/add_domocile.php" method="POST">
+    <label>Nom du lieu :</label><br>
+    <input type="text" name="nom" required><br><br>
+
+    <label>Ville :</label><br>
+    <input type="text" name="ville" required><br><br>
+
+    <label>Code Postal :</label><br>
+    <input type="number" name="cp" required><br><br>
+
+    <label>Rue :</label><br>
+    <input type="text" name="rue" required><br><br>
+
+    <label>Numéro :</label><br>
+    <input type="number" name="numero"><br><br>
+
+    <input type="submit" value="Ajouter le domicile">
+</form>
+
+</body>
+</html>

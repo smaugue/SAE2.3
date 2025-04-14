@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Enregistrement Véhicule</title>
+</head>
+<body>
+
+<h2>Enregistrement du véhicule</h2>
+
+<form action="php/registercar.php" method="POST">
+    <label>Type de véhicule :</label><br>
+    <input type="text" name="type" required><br><br>
+
+    <label>Nombre de places :</label><br>
+    <input type="number" name="nb_place" min="1" required><br><br>
+
+    <label>Immatriculation :</label><br>
+    <input type="text" name="imatriculation" required><br><br>
+
+    <label>Date du contrôle technique :</label><br>
+    <input type="date" name="controle_technique" required><br><br>
+
+    <label>Nom de l'assurance :</label><br>
+    <input type="text" name="assurance" required><br><br>
+
+    <input type="submit" value="Enregistrer le véhicule">
+</form>
+
+</body>
+</html>
