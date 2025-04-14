@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>login</title>
+    <title>register</title>
 </head>
 <body>
 
@@ -23,7 +23,7 @@
     <label>Votre Groupe ?</label><br>
     <input type="text" name="groupe" required><br><br>
 
-    <label>Votre Foramation ?</label><br>
+    <label>Votre Formation ?</label><br>
     <input type="text" name="formation" required><br><br>
 
 
@@ -32,9 +32,6 @@
 
 <?php
 require 'db_connect.php' ;
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = $_POST['username'];
@@ -50,9 +47,7 @@ try {
 
         echo "Compte créé avec succès !";
     }
-} catch (PDOException $e) {
-    echo "Erreur : " . $e->getMessage();
-}
+
 ?>
 
 
