@@ -15,7 +15,7 @@ Ce tableau décrit les types de données et les valeurs possibles pour les varia
 |                     | `id_vehicule`           | `INT`                          | Référence à `Vehicule.id_vehicule` (Identifiant du véhicule) |
 |                     | `id_formation`          | `INT`                          | Référence à `Formation.id_formation` (Identifiant de la formation) |
 |                     | `username`              | `VARCHAR(50)`                  | Chaîne de caractères (Nom d'utilisateur unique)      |
-|                     | `password`              | `VARCHAR(50)`                  | Chaîne de caractères (Mot de passe crypté)            |
+|                     | `password`              | `VARCHAR(50)`                  | Chaîne de caractères (Mot de passe)            |
 | **Vehicule**        | `id_vehicule`           | `INT`                          | Valeur auto-incrémentée (Identifiant unique du véhicule) |
 |                     | `id_user`               | `INT`                          | Référence à `Users.id_user` (Identifiant de l'utilisateur) |
 |                     | `Type`                  | `VARCHAR(50)`                  | 'Voiture', 'Moto', 'Camion' (exemples de types de véhicules) |
