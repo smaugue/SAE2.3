@@ -1,4 +1,4 @@
-/* Reset */
+/* ======================= RESET ======================= */
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +9,7 @@ body {
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* Fond général */
+/* ======================= WRAPPER ======================= */
 .wrapper {
     width: 100vw;
     height: 100vh;
@@ -20,10 +20,10 @@ body {
     overflow: hidden;
 }
 
-/* Contenu sombre */
+/* ======================= CONTENU SOMBRE ======================= */
 .content {
     width: 100%;
-    height: 100%;
+    min-height: 100vh; /* ✅ corrige le dépassement en bas */
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
     padding: 20px;
@@ -34,7 +34,7 @@ body {
     align-items: center;
 }
 
-/* Titre principal */
+/* ======================= LOGO ======================= */
 .logo {
     position: absolute;
     top: 20px;
@@ -46,18 +46,17 @@ body {
 
 .protest-strike-regular {
     font-family: "Protest Strike", sans-serif;
-    font-weight: 400;
     font-size: 50px;
     color: white;
 }
 
-/* Menu */
+/* ======================= MENU ======================= */
 .menu {
     position: absolute;
-    top: 20px; /* Éloigne le menu du haut */
+    top: 20px;
     left: 20px;
-    z-index: 100; /* Menu devant les autres éléments */
-    height: 95%; /* Prend 80% de la hauteur de l'écran */
+    z-index: 100;
+    height: 95%;
 }
 
 .hamburger {
@@ -109,7 +108,7 @@ body {
     transform: translateX(0);
 }
 
-/* 📸 Zone images */
+/* ======================= ZONE IMAGES ======================= */
 .image-links {
     display: flex;
     justify-content: center;
@@ -117,8 +116,6 @@ body {
     gap: 40px;
     margin-top: 150px;
     flex-wrap: wrap;
-    /*position: relative;
-    z-index: 50; /* ✅ plus élevé que le menu */
 }
 
 .image-container {
@@ -130,7 +127,6 @@ body {
     border-radius: 15px;
     cursor: pointer;
     text-align: center;
-   /* z-index: 5;*/
 }
 
 .image-container img {
@@ -145,7 +141,7 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Texte overlay */
+/* ======================= OVERLAY TEXTE ======================= */
 .overlay-text {
     position: absolute;
     bottom: 0;
@@ -167,12 +163,10 @@ body {
     transform: translateY(0);
 }
 
-/* ======================= STYLES RESPONSIVE ======================= */
-
-/* Pour les écrans de moins de 768px (tablettes et petits écrans) */
+/* ======================= RESPONSIVE ======================= */
 @media (max-width: 768px) {
     .logo h1 {
-        font-size: 30px; /* Réduire la taille du titre */
+        font-size: 30px;
     }
 
     .menu {
@@ -181,7 +175,7 @@ body {
     }
 
     .hamburger {
-        font-size: 35px; /* Réduire la taille de l'icône burger */
+        font-size: 35px;
         width: 45px;
         height: 45px;
     }
@@ -193,19 +187,18 @@ body {
     }
 
     .image-container {
-        width: 80%; /* Réduire la taille des images */
+        width: 80%;
         height: auto;
     }
 
     .overlay-text {
-        font-size: 18px; /* Réduire la taille du texte overlay */
+        font-size: 18px;
     }
 }
 
-/* Pour les écrans de 768px à 1024px (ordinateurs portables) */
 @media (min-width: 768px) and (max-width: 1024px) {
     .logo h1 {
-        font-size: 40px; /* Ajuster la taille du titre */
+        font-size: 40px;
     }
 
     .menu {
@@ -214,38 +207,37 @@ body {
     }
 
     .hamburger {
-        font-size: 35px; /* Ajuster la taille du hamburger */
+        font-size: 35px;
         width: 45px;
         height: 45px;
     }
 
     .image-links {
-        gap: 30px; /* Ajouter un peu d'espace entre les images */
+        gap: 30px;
         margin-top: 120px;
     }
 
     .image-container {
-        width: 45%; /* Images plus petites que sur un bureau */
-        height: 400px; /* Hauteur réduite des images */
+        width: 45%;
+        height: 400px;
     }
 
     .overlay-text {
-        font-size: 20px; /* Ajuster la taille du texte overlay */
+        font-size: 20px;
     }
 }
 
-/* Pour les écrans de moins de 480px (smartphones) */
 @media (max-width: 480px) {
     .logo h1 {
-        font-size: 24px; /* Réduire encore la taille du titre */
+        font-size: 24px;
     }
 
     .menu nav {
-        width: 250px; /* Réduire la largeur du menu */
+        width: 250px;
     }
 
     .hamburger {
-        font-size: 30px; /* Réduire la taille du hamburger */
+        font-size: 30px;
     }
 
     .image-links {
@@ -253,72 +245,69 @@ body {
     }
 
     .image-container {
-        width: 100%; /* S'assurer que les images prennent toute la largeur */
-        height: 250px; /* Ajuster la hauteur des images */
+        width: 100%;
+        height: 250px;
     }
 
     .overlay-text {
-        font-size: 16px; /* Ajuster la taille du texte overlay */
+        font-size: 16px;
     }
 }
 
+/* ======================= FORMULAIRES ======================= */
 .log {
-    font-size: 250% ;
+    font-size: 250%;
 }
 
 .formulaire {
-    text-align: center ;
+    text-align: center;
 }
-
 
 input,
 textarea {
-  font-size: 120%;
-  padding: 8px 20px;     
-  width: 100%;
-  height: 35px; 
-  border-radius: 10px;
+    font-size: 120%;
+    padding: 8px 20px;
+    width: 100%;
+    height: 35px;
+    border-radius: 10px;
 }
-
 
 input:focus,
 textarea:focus {
-  border-color: #5c9ded;
-  outline: none;
-  box-shadow: 0 0 10px rgba(92, 157, 237, 0.2);
+    border-color: #5c9ded;
+    outline: none;
+    box-shadow: 0 0 10px rgba(92, 157, 237, 0.2);
 }
 
 select {
     font-size: 90%;
-    padding: 8px 20px;     
+    padding: 8px 20px;
     width: 200%;
-    height: 35px; 
+    height: 35px;
     border-radius: 10px;
     align-items: center;
     margin-left: -50%;
 }
 
-
 button {
-    padding: 5px 15px; /* taille du bouton */
+    padding: 5px 15px;
     border-radius: 8px;
 }
 
-
-
+/* ======================= TEXTES EXPLICATIFS ======================= */
 .middle-text {
     margin-top: 100px;
     text-align: center;
     color: white;
     font-size: 28px;
-    font-family: "Protest Strike", sans-serif; /* ou "Winky Sans", selon ton choix */
+    font-family: "Protest Strike", sans-serif;
     max-width: 80%;
 }
 
 .explication-box {
-    background-color: rgba(255, 255, 255, 0.1); /* fond léger et lisible */
-    border: 2px solid rgba(255, 255, 255, 0.3);  /* bord fin semi-transparent */
-    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
     padding: 30px;
     margin-top: 150px;
     max-width: 800px;
@@ -326,25 +315,32 @@ button {
     color: white;
     font-family: "Protest Strike", sans-serif;
     font-size: 10px;
-    line-height: 1.6;
-    backdrop-filter: blur(5px); /* effet flouté derrière pour le style */
-    color: #fff; /* Texte blanc */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Ombre pour améliorer la lisibilité */
-    line-height: 1.8; /* Plus d'espace entre les lignes */
-    background-color: rgba(0, 0, 0, 0.7); /* Fond noir semi-transparent */
-    border-radius: 10px;
-    list-style-type: disc; /* Utilise des puces (tirets) */
-    padding-left: 20px; /* Ajoute un petit décalage à gauche */
-    color: white;
     line-height: 1.8;
-}
-.explication-box li {
-margin-bottom: 10px; /* Ajoute un espacement entre les lignes */
-text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombre pour le texte */
-}
-.protest-strike-regular {
-    font-family: "Protest Strike", sans-serif;
-    font-size: 24px; /* 👈 Ajoute ça ici */
-    color: white;
+    backdrop-filter: blur(5px);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    list-style-type: disc;
+    padding-left: 20px;
 }
 
+.explication-box li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+}
+
+.explication-text {
+    font-family: "Protest Strike", sans-serif;
+    font-size: 18px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 700px;
+    width: fit-content;
+    text-align: left;
+    line-height: 1.8;
+    backdrop-filter: blur(5px);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
