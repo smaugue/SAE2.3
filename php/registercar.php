@@ -3,10 +3,7 @@ session_start();
 require 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_SESSION["user_id"])) {
-        echo "Erreur : utilisateur non identifié.";
-        exit;
-    }
+    require 'is_connected.php';
 
     $id_user = $_SESSION["user_id"];
     $type = $_POST['type'];
@@ -28,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmtUpdate->execute([$id_vehicule, $id_user]);
 
         echo "Véhicule enregistré avec succès !";
+
+        header("Location: /accueil.html");
 
     } catch (PDOException $e) {
         echo "Erreur lors de l'enregistrement du véhicule : " . $e->getMessage();

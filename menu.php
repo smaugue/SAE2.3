@@ -5,7 +5,7 @@
     <title>Menu de Navigation</title>
 </head>
 <body>
-    <h1>🔧 Menu de Développement</h1>
+    <h1>Menu de Développement</h1>
 
     <ul>
         <li><a href="register.html">1. Créer un compte utilisateur</a></li>

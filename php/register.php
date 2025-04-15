@@ -18,7 +18,7 @@ require 'db_connect.php' ;
         $_SESSION["user_id"] = $pdo->lastInsertId();
 
         // Redirection vers registercar.php avec l'id_user en paramètre GET
-        header("Location: /registercar.html");
+        header("Location: /add_domicile.html");
 
     }
 

@@ -3,10 +3,7 @@ session_start();
 require 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_SESSION["user_id"])) {
-        echo "Erreur : utilisateur non connecté.";
-        exit;
-    }
+    require 'is_connected.php';
 
     $id_user = $_SESSION["user_id"];
     $nom = $_POST['nom'];
@@ -28,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmtHab->execute([$id_user, $id_lieux]);
 
         echo "Domicile ajouté avec succès !";
+
+        header("Location: /registercar.html");
 
     } catch (PDOException $e) {
         echo "Erreur lors de l'ajout du domicile : " . $e->getMessage();
