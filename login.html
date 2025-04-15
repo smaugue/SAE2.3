@@ -2,21 +2,50 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
+
+        <!-- Préconnecter les sources de Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+        <!-- Police personnalisée -->
+        <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    
+        <!-- css -->
+        <link rel="stylesheet" href="accueil.css">
 </head>
 <body>
 
 <body>
-    <h2>Connexion</h2>
-    <form action="php/login.php" method="post">
-        <label>Nom d'utilisateur :</label>
-        <input type="text" name="username" required><br>
 
-        <label>Mot de passe :</label>
-        <input type="text" name="password" required><br>
+    <div class="wrapper">
+        <div class="content">
 
-        <input type="submit" value="Se connecter">
-    </form>
+            <!-- Titre principal -->
+            <div class="logo">
+                <h1 class="protest-strike-regular">RouleMaPoule</h1>
+            </div>
+
+
+            <div class="log">
+                <h2>Connexion</h2></div><br>
+            <form action="php/login.php" method="post">
+                <label>Nom d'utilisateur :</label>
+                <input type="text" name="username" required><br><br>
+
+                <label>Mot de passe :</label>
+                <input type="text" name="password" required><br><br>
+
+                <input type="submit" value="Se connecter">
+            </form>
+        </div>
+    </div>
+
+    <!-- Script JS -->
+    <script src="propos.js"></script>
+
+
 
 </body>
 </html>
