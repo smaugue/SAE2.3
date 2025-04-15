@@ -267,7 +267,7 @@ body {
 }
 
 .formulaire {
-    text-align: center;
+    text-align: center ;
 }
 
 
@@ -288,10 +288,63 @@ textarea:focus {
   box-shadow: 0 0 10px rgba(92, 157, 237, 0.2);
 }
 
+select {
+    font-size: 90%;
+    padding: 8px 20px;     
+    width: 200%;
+    height: 35px; 
+    border-radius: 10px;
+    align-items: center;
+    margin-left: -50%;
+}
+
 
 button {
     padding: 5px 15px; /* taille du bouton */
     border-radius: 8px;
 }
 
+
+
+.middle-text {
+    margin-top: 100px;
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    font-family: "Protest Strike", sans-serif; /* ou "Winky Sans", selon ton choix */
+    max-width: 80%;
+}
+
+.explication-box {
+    background-color: rgba(255, 255, 255, 0.1); /* fond léger et lisible */
+    border: 2px solid rgba(255, 255, 255, 0.3);  /* bord fin semi-transparent */
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 150px;
+    max-width: 800px;
+    text-align: center;
+    color: white;
+    font-family: "Protest Strike", sans-serif;
+    font-size: 10px;
+    line-height: 1.6;
+    backdrop-filter: blur(5px); /* effet flouté derrière pour le style */
+    color: #fff; /* Texte blanc */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Ombre pour améliorer la lisibilité */
+    line-height: 1.8; /* Plus d'espace entre les lignes */
+    background-color: rgba(0, 0, 0, 0.7); /* Fond noir semi-transparent */
+    border-radius: 10px;
+    list-style-type: disc; /* Utilise des puces (tirets) */
+    padding-left: 20px; /* Ajoute un petit décalage à gauche */
+    color: white;
+    line-height: 1.8;
+}
+.explication-box li {
+margin-bottom: 10px; /* Ajoute un espacement entre les lignes */
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombre pour le texte */
+}
+.protest-strike-regular {
+    font-family: "Protest Strike", sans-serif;
+    font-size: 24px; /* 👈 Ajoute ça ici */
+    color: white;
+}
 
