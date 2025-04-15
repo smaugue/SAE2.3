@@ -2,30 +2,59 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enregistrement Véhicule</title>
+
+    <!-- Préconnecter les sources de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Police personnalisée -->
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">    
+    <!-- css -->
+    <link rel="stylesheet" href="accueil.css">
 </head>
 <body>
 
-<h2>Enregistrement du véhicule</h2>
+    <div class="wrapper">
+        <div class="content">
 
-<form action="php/registercar.php" method="POST">
-    <label>Type de véhicule :</label><br>
-    <input type="text" name="type" required><br><br>
+            <!-- Titre principal -->
+            <div class="logo">
+                <h1 class="protest-strike-regular">RouleMaPoule</h1>
+            </div>
 
-    <label>Nombre de places :</label><br>
-    <input type="number" name="nb_place" min="1" required><br><br>
+            <div class="log">
+            <h2>Enregistrement du véhicule</h2></div><br>
 
-    <label>Immatriculation :</label><br>
-    <input type="text" name="imatriculation" required><br><br>
+            <a href="accueil.html">
+                <button>Je n'ai pas de véhicule</button>
+            </a><br>
 
-    <label>Date du contrôle technique :</label><br>
-    <input type="date" name="controle_technique" required><br><br>
+            <form action="php/registercar.php" method="POST">
+                <label>Type de véhicule :</label><br>
+                <input type="text" name="type" required><br><br>
 
-    <label>Nom de l'assurance :</label><br>
-    <input type="text" name="assurance" required><br><br>
+                <label>Nombre de places :</label><br>
+                <input type="number" name="nb_place" min="1" required><br><br>
 
-    <input type="submit" value="Enregistrer le véhicule">
-</form>
+                <label>Immatriculation :</label><br>
+                <input type="text" name="imatriculation" required><br><br>
+
+                <label>Date du contrôle technique :</label><br>
+                <input type="date" name="controle_technique" required><br><br>
+
+                <label>Nom de l'assurance :</label><br>
+                <input type="text" name="assurance" required><br><br>
+
+                <input type="submit" value="Enregistrer le véhicule"><br><br>
+        </form>
+        </div>
+    </div>
+
+    <!-- Script JS -->
+    <script src="propos.js"></script>
+
 
 </body>
 </html>
