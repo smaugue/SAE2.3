@@ -16,6 +16,6 @@ if ($user && $password === $user['psswd']) {
     header("Location: accueil.html");
     exit();
 } else {
-    echo "Identifiants incorrects.";
+    header("Location: login.html");
 }
 ?>

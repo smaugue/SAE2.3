@@ -1,9 +1,8 @@
 <?php
-session_start();
+require 'is_connected.php';
 require 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require 'is_connected.php';
 
     $id_user = $_SESSION["user_id"];
     $depart = $_POST['depart'];

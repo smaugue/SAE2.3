@@ -1,9 +1,8 @@
 <?php
-session_start();
+require 'is_connected.php';
 require 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require 'is_connected.php';
 
     $id_user = $_SESSION["user_id"];
     $nom = $_POST['nom'];
@@ -14,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Insérer un nouveau lieu de type "domicile"
-        $stmt = $pdo->prepare("INSERT INTO Lieux (Nom, Ville, CP, Rue, Numéro, Type) VALUES (?, ?, ?, ?, ?, 'domicile')");
+        $stmt = $pdo->prepare("INSERT INTO Lieux (Nom, Ville, CP, Rue, Numéro, Type) VALUES (?, ?, ?, ?, ?, 'home')");
         $stmt->execute([$nom, $ville, $cp, $rue, $numero]);
 
         // Récupérer l'ID du lieu inséré
