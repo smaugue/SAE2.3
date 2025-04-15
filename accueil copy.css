@@ -289,13 +289,12 @@ textarea:focus {
 }
 
 select {
-    font-size: 90%;
+    font-size: 100%;
     padding: 8px 20px;     
     width: 200%;
     height: 35px; 
     border-radius: 10px;
     align-items: center;
-    margin-left: -50%;
 }
 
 

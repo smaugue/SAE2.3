@@ -2,35 +2,57 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer un trajet</title>
+
+    <!-- Préconnecter les sources de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+    <!-- Police personnalisée -->
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">    
+    <!-- css -->
+    <link rel="stylesheet" href="accueil.css">
 </head>
 <body>
+    <div class="wrapper">
+        <div class="content">
 
-<h2>Créer un nouveau trajet</h2>
+            <div class="log">
+            <h2>Crééer un nouveau trajet</h2></div><br><br><br>
 
-<form action="php/add_course.php" method="POST">
+                <form action="php/add_course.php" method="POST">
 
-    <label>Lieu de départ :</label><br>
-    <select name="depart" id="select-depart" required>
-        <option value="">Chargement...</option>
-    </select><br><br>
+                    <div class="formulaire"><label>Lieu de départ :</label></div>
+                    <select name="depart" id="select-depart" required>
+                        <option value="">Chargement...</option>
+                    </select><br><br>
 
-    <label>Lieu d’arrivée :</label><br>
-    <select name="arrivee" id="select-arrivee" required>
-        <option value="">Chargement...</option>
-    </select><br><br>
+                    <div class="formulaire"><label>Lieu d’arrivée :</label></div>
+                    <select name="arrivee" id="select-arrivee" required>
+                        <option value="">Chargement...</option>
+                    </select><br><br>
+                    
+                    <div class="formulaire">
+                    <label>Date et heure de départ :</label><br>
+                    <input type="datetime-local" name="dh_depart" required><br><br>
 
-    <label>Date et heure de départ :</label><br>
-    <input type="datetime-local" name="dh_depart" required><br><br>
+                    <label>Date et heure d’arrivée :</label><br>
+                    <input type="datetime-local" name="dh_arrivee" required><br><br>
 
-    <label>Date et heure d’arrivée :</label><br>
-    <input type="datetime-local" name="dh_arrivee" required><br><br>
+                    <label>Prix (€)* :</label><br>
+                    <input type="number" name="prix" min="0" required><br><br>
 
-    <label>Prix (€) :</label><br>
-    <input type="number" name="prix" min="0" required><br><br>
+                    <input type="submit" value="Créer le trajet"></div>
+                </form>
+            
+        </div>
+    </div>
 
-    <input type="submit" value="Créer le trajet">
-</form>
+    <!-- Script JS -->
+    <script src="propos.js"></script>
+
+
 
 <script>
     // Fonction pour charger les lieux depuis le serveur
