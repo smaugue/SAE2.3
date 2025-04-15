@@ -117,7 +117,7 @@ body {
     gap: 40px;
     margin-top: 150px;
     flex-wrap: wrap;
-    position: relative;
+    /*position: relative;
     z-index: 50; /* ✅ plus élevé que le menu */
 }
 
@@ -130,7 +130,7 @@ body {
     border-radius: 15px;
     cursor: pointer;
     text-align: center;
-    z-index: 5;
+   /* z-index: 5;*/
 }
 
 .image-container img {
@@ -267,10 +267,6 @@ body {
 }
 
 .formulaire {
-    text-align: center;
-}
-
-label {
     text-align: center;
 }
 
