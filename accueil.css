@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
 /* Fond général */
 .wrapper {
     width: 100vw;
@@ -257,3 +261,41 @@
         font-size: 16px; /* Ajuster la taille du texte overlay */
     }
 }
+
+.log {
+    font-size: 250% ;
+}
+
+.formulaire {
+    text-align: center;
+}
+
+label {
+    text-align: center;
+}
+
+
+input,
+textarea {
+  font-size: 120%;
+  padding: 8px 20px;     
+  width: 100%;
+  height: 35px; 
+  border-radius: 10px;
+}
+
+
+input:focus,
+textarea:focus {
+  border-color: #5c9ded;
+  outline: none;
+  box-shadow: 0 0 10px rgba(92, 157, 237, 0.2);
+}
+
+
+button {
+    padding: 5px 15px; /* taille du bouton */
+    border-radius: 8px;
+}
+
+

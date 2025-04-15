@@ -19,11 +19,6 @@
     <div class="wrapper">
         <div class="content">
 
-            <!-- Titre principal -->
-            <div class="logo">
-                <h1 class="protest-strike-regular">RouleMaPoule</h1>
-            </div>
-
             <div class="log">
             <h2>Enregistrement du véhicule</h2></div><br>
 
@@ -31,24 +26,26 @@
                 <button>Je n'ai pas de véhicule</button>
             </a><br>
 
-            <form action="php/registercar.php" method="POST">
-                <label>Type de véhicule :</label><br>
-                <input type="text" name="type" required><br><br>
+            <div class="formulaire"></div>
+                <form action="php/registercar.php" method="POST">
+                    <label>Type de véhicule :</label><br>
+                    <input type="text" name="type" required><br><br>
 
-                <label>Nombre de places :</label><br>
-                <input type="number" name="nb_place" min="1" required><br><br>
+                    <label>Nombre de places :</label><br>
+                    <input type="number" name="nb_place" min="1" required><br><br>
 
-                <label>Immatriculation :</label><br>
-                <input type="text" name="imatriculation" required><br><br>
+                    <label>Immatriculation :</label><br>
+                    <input type="text" name="imatriculation" required><br><br>
 
-                <label>Date du contrôle technique :</label><br>
-                <input type="date" name="controle_technique" required><br><br>
+                    <label>Date du contrôle technique :</label><br>
+                    <input type="date" name="controle_technique" required><br><br>
 
-                <label>Nom de l'assurance :</label><br>
-                <input type="text" name="assurance" required><br><br>
+                    <label>Nom de l'assurance :</label><br>
+                    <input type="text" name="assurance" required><br><br>
 
-                <input type="submit" value="Enregistrer le véhicule"><br><br>
-        </form>
+                    <input type="submit" value="Enregistrer le véhicule"><br><br>
+                </form>
+            </div>
         </div>
     </div>
 
