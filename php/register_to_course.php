@@ -2,8 +2,6 @@
 // Include database connection
 require_once 'db_connection.php';
 
-session_start();
-
 // Check if user is logged in
 require 'is_connected.php';
 
