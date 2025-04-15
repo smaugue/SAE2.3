@@ -9,3 +9,4 @@ SAE2.3
 | 4. Création de trajet      | `add_course.html`      | `add_course.php`          | `get_lieux.php`           | Crée un trajet avec lieux sélectionnés |
 | Menu de navigation         | `menu.php`            |                           |                           | Accès rapide à tous les formulaires |
 | Chargement dynamique lieux |                        | `get_lieux.php`           | utilisé dans `add_course.html` | Fournit les lieux au menu déroulant |
+
