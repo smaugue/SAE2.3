@@ -121,14 +121,14 @@
         function rejoindreCourse(id_course) {
             fetch('php/join_course.php', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                body: 'id_course=' + encodeURIComponent(id_course)
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'id_course=' + encodeURIComponent(id_course)  // Envoi sous forme de paramètres URL encodés
             })
-            .then(response => response.json())
+            .then(response => response.json())  // Décodage de la réponse JSON
             .then(result => {
                 if (result.success) {
                     alert("Vous avez rejoint la course !");
-                    chargerCourses();
+                    chargerCourses();  // Recharge la liste des courses disponibles
                 } else {
                     alert("Erreur : " + result.message);
                 }
