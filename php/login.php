@@ -12,7 +12,8 @@ $user = $stmt->fetch();
 
 if ($user && $password === $user['psswd']) {
     $_SESSION['user'] = $user['username'];
-    header("Location: accueil.php");
+    $_SESSION['user_id'] = $user['id_user']; // Ajout demandé
+    header("Location: accueil.html");
     exit();
 } else {
     echo "Identifiants incorrects.";
