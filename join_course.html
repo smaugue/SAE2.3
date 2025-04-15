@@ -119,12 +119,17 @@
         }
 
         function rejoindreCourse(id_course) {
+            // Envoi de la requête avec l'ID de la course en paramètre POST
             fetch('php/join_course.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'id_course=' + encodeURIComponent(id_course)  // Envoi sous forme de paramètres URL encodés
+                headers: { 
+                    'Content-Type': 'application/x-www-form-urlencoded' // Envoi avec ce type MIME
+                },
+                body: new URLSearchParams({
+                    'id_course': id_course  // Paramètre URL-encoded
+                })
             })
-            .then(response => response.json())  // Décodage de la réponse JSON
+            .then(response => response.json())  // On attend une réponse en JSON
             .then(result => {
                 if (result.success) {
                     alert("Vous avez rejoint la course !");
@@ -134,10 +139,11 @@
                 }
             })
             .catch(err => {
-                console.error("Erreur lors de l'inscription :", err);
+                console.error("Erreur lors de la requête :", err);
                 alert("Une erreur s'est produite.");
             });
         }
+
 
         // Chargement initial
         chargerCourses();

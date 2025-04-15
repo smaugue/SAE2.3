@@ -3,10 +3,14 @@ require 'is_connected.php'; // Vérifie la session
 require 'db_connect.php';   // Connexion à la base de données
 session_start();
 
-header('Content-Type: application/json');
+header('Content-Type: application/json');  // En-tête pour indiquer que la réponse sera en JSON
+
+// Afficher les erreurs PHP pour le débogage
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 $id_user = $_SESSION['user_id'];  // L'ID de l'utilisateur depuis la session
-$input = $_POST;  // On récupère directement les données envoyées via POST
+$input = $_POST;  // On récupère les données envoyées via POST
 $id_course = $input['id_course'] ?? null;  // Récupération de l'ID de la course
 
 // Vérification si l'ID de la course est valide
@@ -42,5 +46,6 @@ $insert->execute([$id_course, $id_user]);
 $update = $pdo->prepare("UPDATE Course SET Nb_place_disponible = Nb_place_disponible - 1 WHERE id_course = ?");
 $update->execute([$id_course]);
 
+// Réponse JSON valide
 echo json_encode(["success" => true, "message" => "Inscription réussie à la course."]);
 ?>
