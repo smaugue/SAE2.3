@@ -16,6 +16,6 @@ if ($user && $password === $user['psswd']) {
     header("Location: accueil.html");
     exit();
 } else {
-    header("Location: login.html");
+    header("Location: ../login.html");
 }
 ?>

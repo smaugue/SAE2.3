@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo "Domicile ajouté avec succès !";
 
-        header("Location: /registercar.html");
+        header("Location: ../registercar.html");
 
     } catch (PDOException $e) {
         echo "Erreur lors de l'ajout du domicile : " . $e->getMessage();

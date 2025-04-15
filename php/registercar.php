@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo "Véhicule enregistré avec succès !";
 
-        header("Location: /accueil.html");
+        header("Location: ../accueil.html");
 
     } catch (PDOException $e) {
         echo "Erreur lors de l'enregistrement du véhicule : " . $e->getMessage();
