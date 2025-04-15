@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Insertion du véhicule
-        $stmt = $pdo->prepare("INSERT INTO Vehicule (Type, Nb_place, Imatriculation, Controle_technique, Assurance) VALUES (, ?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO Vehicule (Type, Nb_place, Imatriculation, Controle_technique, Assurance) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$type, $nb_place, $imatriculation, $controle_technique, $assurance]);
 
         // Récupération de l'id du véhicule
