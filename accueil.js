@@ -1,3 +1,4 @@
+
 // Sélectionner l'icône du menu burger et le menu
 const hamburger = document.querySelector('.hamburger');
 const menu = document.querySelector('.menu');
