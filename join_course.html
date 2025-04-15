@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses disponibles</title>
+    <style>
+        .course {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .filters {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Courses disponibles</h1>
+
+    <div class="filters">
+        <label for="ville">Ville de départ :</label>
+        <input type="text" id="ville" placeholder="ex: Lyon">
+
+        <label for="jour">Jour :</label>
+        <select id="jour">
+            <option value="">Tous</option>
+            <option value="1">Lundi</option>
+            <option value="2">Mardi</option>
+            <option value="3">Mercredi</option>
+            <option value="4">Jeudi</option>
+            <option value="5">Vendredi</option>
+            <option value="6">Samedi</option>
+            <option value="0">Dimanche</option>
+        </select>
+
+        <button onclick="chargerCourses()">Filtrer</button>
+    </div>
+
+    <div id="course-list"></div>
+
+    <script>
+        function chargerCourses() {
+            const ville = document.getElementById('ville').value;
+            const jour = document.getElementById('jour').value;
+
+            fetch('get_courses.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ville: ville, jour: jour })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('course-list');
+                list.innerHTML = '';
+
+                if (data.length === 0) {
+                    list.innerHTML = '<p>Aucune course trouvée.</p>';
+                    return;
+                }
+
+                data.forEach(course => {
+                    const div = document.createElement('div');
+                    div.className = 'course';
+                    div.innerHTML = `
+                        <p><strong>Départ :</strong> ${course.depart} - ${course.DH_départ}</p>
+                        <p><strong>Arrivée :</strong> ${course.arrivee} - ${course.DH_arrive}</p>
+                        <p><strong>Places disponibles :</strong> ${course.Nb_place_disponible}</p>
+                        <button onclick="rejoindreCourse(${course.id_course})">Rejoindre</button>
+                    `;
+                    list.appendChild(div);
+                });
+            });
+        }
+
+        function rejoindreCourse(id_course) {
+            fetch('join_course.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id_course: id_course })
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.message);
+                if (result.success) {
+                    chargerCourses();
+                }
+            });
+        }
+
+        // Chargement initial
+        chargerCourses();
+    </script>
+</body>
+</html>
