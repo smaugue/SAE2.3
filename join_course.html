@@ -4,58 +4,14 @@
         const jour = document.getElementById('jour').value;
 
         fetch('get_courses.php')
-        .then(response => response.json())
-        .then(data => {
-            const list = document.getElementById('course-list');
-            list.innerHTML = '';
+  .then(response => response.text())  // 👈 remplace .json() par .text()
+  .then(text => {
+    console.log("Réponse brute :", text);
+    const data = JSON.parse(text);  // 👈 tente manuellement
+    console.log("Objet JSON :", data);
+  })
+  .catch(err => console.error("Erreur :", err));
 
-            // Enrichir avec score de pertinence
-            const coursesScored = data.map(course => {
-                let score = 0;
-
-                // Match ville
-                if (ville && course.ville_depart.toLowerCase().includes(ville)) {
-                    score += 1;
-                }
-
-                // Match jour
-                if (jour !== '') {
-                    const date = new Date(course.DH_départ);
-                    const jsJour = date.getDay(); // 0 (dim) à 6 (sam)
-                    const expected = parseInt(jour);
-                    if ((expected === 0 && jsJour === 0) || (expected > 0 && jsJour === expected)) {
-                        score += 1;
-                    }
-                }
-
-                return { ...course, score };
-            });
-
-            // Trier par score DESC, puis date ASC
-            coursesScored.sort((a, b) => {
-                if (b.score !== a.score) return b.score - a.score;
-                return new Date(a.DH_départ) - new Date(b.DH_départ);
-            });
-
-            if (coursesScored.length === 0) {
-                list.innerHTML = '<p>Aucune course trouvée.</p>';
-                return;
-            }
-
-            // Afficher les résultats
-            coursesScored.forEach(course => {
-                const div = document.createElement('div');
-                div.className = 'course';
-                div.innerHTML = `
-                    <p><strong>Départ :</strong> ${course.depart} (${course.ville_depart}) - ${course.DH_départ}</p>
-                    <p><strong>Arrivée :</strong> ${course.arrivee} - ${course.DH_arrive}</p>
-                    <p><strong>Places dispo :</strong> ${course.Nb_place_disponible}</p>
-                    ${course.score > 0 ? '<p style="color: green;"><strong>✔ Pertinent</strong></p>' : ''}
-                    <button onclick="rejoindreCourse(${course.id_course})">Rejoindre</button>
-                `;
-                list.appendChild(div);
-            });
-        });
     }
 
     // ... (rejoindreCourse() reste inchangé)
