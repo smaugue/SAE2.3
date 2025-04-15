@@ -2,31 +2,59 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>register</title>
+
+    <!-- Préconnecter les sources de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Police personnalisée -->
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <!-- css -->
+    <link rel="stylesheet" href="accueil.css">
 </head>
 <body>
 
+    <div class="wrapper">
+        <div class="content">
 
-<form action="php/register.php" method="POST">
-    <label>Nom d'utilisateur</label><br>
-    <input type="text" name="username" required><br>
-    
-    <label>Mot de passe:</label><br>
-    <input type="text" name="mdp" required><br><br>
-    
-    <label>Nom:</label><br>
-    <input type="text" name="nom" required><br><br>
+            <!-- Titre principal -->
+            <div class="logo">
+                <h1 class="protest-strike-regular">RouleMaPoule</h1>
+            </div>
 
-    <label>Prenom:</label><br>
-    <input type="text" name="prenom" required><br><br>
 
-    <label>Votre Formation ?</label><br>
-    <input type="text" name="formation" required><br><br>
+            <div class="log">
+                <h2>Créer un compte</h2></div><br>
+            <form action="php/register.php" method="POST">
+                <label>Nom d'utilisateur</label><br>
+                <input type="text" name="username" required><br><br>
+                
+                <label>Mot de passe:</label><br>
+                <input type="password" name="mdp" required><br><br>
+                
+                <label>Nom:</label><br>
+                <input type="text" name="nom" required><br><br>
 
-    <label>Votre Groupe ?</label><br>
-    <input type="text" name="groupe" required><br><br>
+                <label>Prenom:</label><br>
+                <input type="text" name="prenom" required><br><br>
 
-    <input type="submit" value="Créer un compte">
-</form>
+                <label>Votre Formation ?</label><br>
+                <input type="text" name="formation" required><br><br>
+
+                <label>Votre Groupe ?</label><br>
+                <input type="text" name="groupe" required><br><br>
+
+                <input type="submit" value="Créer un compte">
+            </form>
+
+        </div>
+    </div>
+
+<!-- Script JS -->
+<script src="propos.js"></script>
+
 </body>
 </html>
