@@ -50,9 +50,10 @@
 /* Menu */
 .menu {
     position: absolute;
-    top: 20px;
+    top: 20px; /* Éloigne le menu du haut */
     left: 20px;
-    z-index: 10;
+    z-index: 100; /* Menu devant les autres éléments */
+    height: 95%; /* Prend 80% de la hauteur de l'écran */
 }
 
 .hamburger {
@@ -66,7 +67,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: 20;
+    z-index: 50;
 }
 
 .menu nav {
@@ -77,7 +78,7 @@
     padding: 20px;
     border-radius: 5px;
     width: 300px;
-    height: 100vh;
+    height: 100%;
     opacity: 0;
     transform: translateX(100%);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -160,4 +161,99 @@
 .image-container:hover .overlay-text {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ======================= STYLES RESPONSIVE ======================= */
+
+/* Pour les écrans de moins de 768px (tablettes et petits écrans) */
+@media (max-width: 768px) {
+    .logo h1 {
+        font-size: 30px; /* Réduire la taille du titre */
+    }
+
+    .menu {
+        top: 10px;
+        left: 10px;
+    }
+
+    .hamburger {
+        font-size: 35px; /* Réduire la taille de l'icône burger */
+        width: 45px;
+        height: 45px;
+    }
+
+    .image-links {
+        flex-direction: column;
+        margin-top: 100px;
+        gap: 20px;
+    }
+
+    .image-container {
+        width: 80%; /* Réduire la taille des images */
+        height: auto;
+    }
+
+    .overlay-text {
+        font-size: 18px; /* Réduire la taille du texte overlay */
+    }
+}
+
+/* Pour les écrans de 768px à 1024px (ordinateurs portables) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .logo h1 {
+        font-size: 40px; /* Ajuster la taille du titre */
+    }
+
+    .menu {
+        top: 15px;
+        left: 15px;
+    }
+
+    .hamburger {
+        font-size: 35px; /* Ajuster la taille du hamburger */
+        width: 45px;
+        height: 45px;
+    }
+
+    .image-links {
+        gap: 30px; /* Ajouter un peu d'espace entre les images */
+        margin-top: 120px;
+    }
+
+    .image-container {
+        width: 45%; /* Images plus petites que sur un bureau */
+        height: 400px; /* Hauteur réduite des images */
+    }
+
+    .overlay-text {
+        font-size: 20px; /* Ajuster la taille du texte overlay */
+    }
+}
+
+/* Pour les écrans de moins de 480px (smartphones) */
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 24px; /* Réduire encore la taille du titre */
+    }
+
+    .menu nav {
+        width: 250px; /* Réduire la largeur du menu */
+    }
+
+    .hamburger {
+        font-size: 30px; /* Réduire la taille du hamburger */
+    }
+
+    .image-links {
+        gap: 10px;
+    }
+
+    .image-container {
+        width: 100%; /* S'assurer que les images prennent toute la largeur */
+        height: 250px; /* Ajuster la hauteur des images */
+    }
+
+    .overlay-text {
+        font-size: 16px; /* Ajuster la taille du texte overlay */
+    }
 }
