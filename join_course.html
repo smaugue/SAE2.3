@@ -1,18 +1,146 @@
-<script>
-    function chargerCourses() {
-        const ville = document.getElementById('ville').value.trim().toLowerCase();
-        const jour = document.getElementById('jour').value;
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des courses</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+        .filters {
+            margin-bottom: 20px;
+        }
+        .course {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+        .course p {
+            margin: 5px 0;
+        }
+        .pertinent {
+            background-color: #e6ffed;
+            border-left: 5px solid #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Courses disponibles</h1>
 
-        fetch('get_courses.php')
-  .then(response => response.text())  // 👈 remplace .json() par .text()
-  .then(text => {
-    console.log("Réponse brute :", text);
-    const data = JSON.parse(text);  // 👈 tente manuellement
-    console.log("Objet JSON :", data);
-  })
-  .catch(err => console.error("Erreur :", err));
+    <div class="filters">
+        <label for="ville">Ville de départ :</label>
+        <input type="text" id="ville" name="ville">
 
-    }
+        <label for="jour">Jour :</label>
+        <select id="jour" name="jour">
+            <option value="">-- Tous les jours --</option>
+            <option value="1">Lundi</option>
+            <option value="2">Mardi</option>
+            <option value="3">Mercredi</option>
+            <option value="4">Jeudi</option>
+            <option value="5">Vendredi</option>
+            <option value="6">Samedi</option>
+            <option value="0">Dimanche</option>
+        </select>
 
-    // ... (rejoindreCourse() reste inchangé)
-</script>
+        <button onclick="chargerCourses()">Rechercher</button>
+    </div>
+
+    <div id="course-list"></div>
+
+    <script>
+        function chargerCourses() {
+            const ville = document.getElementById('ville').value.trim().toLowerCase();
+            const jour = document.getElementById('jour').value;
+
+            fetch('php/get_courses.php')
+                .then(response => response.text()) // pour debug : voir réponse brute
+                .then(text => {
+                    try {
+                        const data = JSON.parse(text);
+                        afficherCourses(data, ville, jour);
+                    } catch (e) {
+                        console.error("Erreur de parsing JSON :", e);
+                        console.log("Réponse brute du serveur :", text);
+                        document.getElementById('course-list').innerHTML = "<p style='color:red;'>Erreur : réponse invalide du serveur.</p>";
+                    }
+                })
+                .catch(err => {
+                    console.error("Erreur lors de la requête :", err);
+                    document.getElementById('course-list').innerHTML = "<p style='color:red;'>Impossible de charger les courses.</p>";
+                });
+        }
+
+        function afficherCourses(courses, ville, jour) {
+            const list = document.getElementById('course-list');
+            list.innerHTML = '';
+
+            const coursesScored = courses.map(course => {
+                let score = 0;
+
+                if (ville && course.ville_depart.toLowerCase().includes(ville)) {
+                    score += 1;
+                }
+
+                if (jour !== '') {
+                    const date = new Date(course.DH_départ);
+                    const jsJour = date.getDay(); // 0 à 6
+                    if (parseInt(jour) === jsJour) {
+                        score += 1;
+                    }
+                }
+
+                return { ...course, score };
+            });
+
+            coursesScored.sort((a, b) => {
+                if (b.score !== a.score) return b.score - a.score;
+                return new Date(a.DH_départ) - new Date(b.DH_départ);
+            });
+
+            if (coursesScored.length === 0) {
+                list.innerHTML = '<p>Aucune course trouvée.</p>';
+                return;
+            }
+
+            coursesScored.forEach(course => {
+                const div = document.createElement('div');
+                div.className = 'course' + (course.score > 0 ? ' pertinent' : '');
+                div.innerHTML = `
+                    <p><strong>Départ :</strong> ${course.depart} (${course.ville_depart})<br><strong>Date :</strong> ${new Date(course.DH_départ).toLocaleString()}</p>
+                    <p><strong>Arrivée :</strong> ${course.arrivee}<br><strong>Date :</strong> ${new Date(course.DH_arrive).toLocaleString()}</p>
+                    <p><strong>Places dispo :</strong> ${course.Nb_place_disponible}</p>
+                    <button onclick="rejoindreCourse(${course.id_course})">Rejoindre</button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function rejoindreCourse(id_course) {
+            fetch('php/join_course.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: 'id_course=' + encodeURIComponent(id_course)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert("Vous avez rejoint la course !");
+                    chargerCourses();
+                } else {
+                    alert("Erreur : " + result.message);
+                }
+            })
+            .catch(err => {
+                console.error("Erreur lors de l'inscription :", err);
+                alert("Une erreur s'est produite.");
+            });
+        }
+
+        // Chargement initial
+        chargerCourses();
+    </script>
+</body>
+</html>
