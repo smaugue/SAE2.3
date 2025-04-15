@@ -56,7 +56,7 @@
             const jour = document.getElementById('jour').value;
 
             fetch('php/get_courses.php')
-                .then(response => response.text()) // pour debug : voir réponse brute
+                .then(response => response.text())
                 .then(text => {
                     try {
                         const data = JSON.parse(text);
