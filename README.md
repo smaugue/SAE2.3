@@ -76,11 +76,13 @@ Ce tableau décrit les types de données et les valeurs possibles pour les varia
 
 | Étape / Fonctionnalité      | Terminé | Fichier HTML           | Fichier PHP (traitement) | Autres fichiers liés     | Description rapide |
 |----------------------------|---------|------------------------|---------------------------|---------------------------|--------------------|
-| 1. Création de compte      | Oui     | `register.html`        | `register.php`            |                           | Formulaire de base pour créer un utilisateur |
-| 2. Ajout de domicile       | Oui     | `add_domicile.html`    | `add_domicile.php`        |                           | Ajoute un lieu et le lie comme domicile |
-| 3. Enregistrement véhicule | Oui     | `registercar.html`     | `registercar.php`         |                           | Associe un véhicule à l’utilisateur |
-| 4. Création de trajet      | Oui     | `add_course.html`      | `add_course.php`          | `get_lieux.php`           | Crée un trajet avec lieux sélectionnés |
-| 5. Rejoindre un trajet     | Non     | ` `                    | ` `                       | ` `                       | Accueil du site |
-| 6. Accueil                 | Oui     | `accueil.html`         | ` `                       | `get_lieux.php`           | Crée un trajet avec lieux sélectionnés |
-| Menu de navigation         | Non     | `menu.php`             |                           |                           | Accès rapide à tous les formulaires |
-| Chargement dynamique lieux | Oui     |                        | `get_lieux.php`           | utilisé dans `add_course.html` | Fournit les lieux au menu déroulant |
+| 1. Création de compte      | **Oui** | `register.html`        | `register.php`            |                           | Formulaire de base pour créer un utilisateur |
+| 2. Ajout de domicile       | **Oui** | `add_domicile.html`    | `add_domicile.php`        |                           | Ajoute un lieu et le lie comme domicile |
+| 3. Enregistrement véhicule | **Oui** | `registercar.html`     | `registercar.php`         |                           | Associe un véhicule à l’utilisateur |
+| 4. Création de trajet      | **Oui** | `add_course.html`      | `add_course.php`          | `get_lieux.php`           | Crée un trajet avec lieux sélectionnés |
+| 5. Rejoindre un trajet     | Non     |                        |                           |                           | Rejoindre un trajet existant |
+| 6. Accueil                 | **Oui** | `accueil.html`         |                           |                           | Accueil |
+| 7. Gestion des trajets     | Non     |                        |                           |                           | Supprimer ou quiter un trajet |
+| **Autres Pages** |
+| Page de débugage           |         | `menu.php`             |                           |                           | Accès rapide à tous les formulaires |
+| Chargement dynamique lieux | **Oui** |                        | `get_lieux.php`           | utilisé dans `add_course.html` | Fournit les lieux au menu déroulant |
