@@ -9,7 +9,7 @@ if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === 0) {
         $headers = fgetcsv($handle, 1000, ',');
 
         while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-            $stmt = $pdo->prepare("INSERT INTO users (username, psswd, Nom, Prenom, Groupe, EST_admin, Formation) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO Users (username, psswd, Nom, Prenom, Groupe, EST_admin, Formation) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([$data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]]);
         }
 
