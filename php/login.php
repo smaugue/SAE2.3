@@ -19,6 +19,7 @@ $user = $stmt->fetch();
 if ($user && $password === $user['psswd']) {
     $_SESSION['user'] = $user['username'];
     $_SESSION['user_id'] = $user['id_user']; // Ajout demandé
+    echo($user['is_admin']);
     if ($user['Est_Admin'] == 1) {
         $_SESSION['is_admin'] = true;
     } else {
