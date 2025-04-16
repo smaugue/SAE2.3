@@ -53,8 +53,7 @@ CREATE TABLE Course(
    Prix INT,
    id_lieux_départ INT NOT NULL,
    id_lieux_arrivé INT NOT NULL,
-   PRIMARY KEY(id_course),
-   UNIQUE(id_conducteur)
+   PRIMARY KEY(id_course)
 );
 
 CREATE TABLE Lieux(
