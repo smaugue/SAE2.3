@@ -1,6 +1,6 @@
 <?php
-require 'is_connected.php';
-require 'db_connect.php';
+require_once 'is_connected.php';
+require_once 'db_connect.php';
 
 header('Content-Type: application/json');
 
@@ -24,3 +24,4 @@ $stmt->execute();
 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($courses);
+?>
