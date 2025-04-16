@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer un trajet</title>
 
     <!-- Préconnecter les sources de Google Fonts -->
@@ -15,6 +14,22 @@
     <link rel="stylesheet" href="accueil.css">
 </head>
 <body>
+    <div class="wrapper">
+        <div class="content">
+            <div class="menu">
+                <div class="hamburger">&#9776;</div>
+                <nav>
+                    <ul>
+                        <li><a href="accueil.html">Accueil</a></li>
+                        <li><a href="propos.html">À propos</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="add_course.html">Programmer voyage</a></li> <!-- ✅ Nouveau lien -->
+                        <li><a href="join_course.html">Rechercher voyage</a></li> <!-- ✅ Nouveau lien -->
+                        <li><a href="php/logout.php">Se déconnecter</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="log">
             <h2>Crééer un nouveau trajet</h2></div><br><br><br>
 
                 <form action="php/add_course.php" method="POST">
@@ -41,11 +56,15 @@
 
                     <input type="submit" value="Créer le trajet"></div>
                 </form>
+            
+        </div>
+    </div>
 
 <script>
     // Fonction pour charger les lieux depuis le serveur
     async function chargerLieux() {
         const response = await fetch('php/get_lieux.php');
+        print(response);
         const lieux = await response.json();
 
         const departSelect = document.getElementById('select-depart');
@@ -58,12 +77,15 @@
 
         // On ajoute les options pour chaque lieu
         lieux.forEach(lieu => {
+            try {
             const option = document.createElement('option');
             option.value = lieu.id_lieux;
             option.textContent = `${lieu.Nom} (${lieu.Ville})`;
-        //si tu capt qq chose je t laissé mon 06 (06-69-69-69-69)
             departSelect.appendChild(option.cloneNode(true));
             arriveeSelect.appendChild(option);
+            } catch (error) {
+                console.error('Erreur lors de l\'ajout de l\'option :', error);
+            }
         });
     }
 
