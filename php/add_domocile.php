@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Insérer un nouveau lieu de type "domicile"
-        $stmt = $pdo->prepare("INSERT INTO Lieux (Nom, Ville, CP, Rue, Numéro, Type) VALUES ('Domicile', ?, ?, ?, ?, 'home')");
+        $stmt = $pdo->prepare("INSERT INTO Lieux (Ville, CP, Rue, Numéro, Type) VALUES (?, ?, ?, ?, 'home')");
         $stmt->execute([$ville, $cp, $rue, $numero]);
 
         // Récupérer l'ID du lieu inséré
