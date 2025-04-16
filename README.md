@@ -11,9 +11,8 @@ Ce tableau décrit les types de données et les valeurs possibles pour les varia
 |                     | `Prénom`                | `VARCHAR(50)`                  | Chaîne de caractères (Prénom de l'utilisateur)       |
 |                     | `Groupe`                | `VARCHAR(50)`                  | Chaîne de caractères (Nom du groupe de l'utilisateur) |
 |                     | `Sous_groupe`           | `VARCHAR(50)`                  | Chaîne de caractères (Nom du sous-groupe de l'utilisateur) |
-|                     | `Est_admin`             | `LOGICAL`                      | `TRUE`, `FALSE` (Indique si l'utilisateur est un administrateur) |
+|                     | `Est_admin`             | `BOOL`                         | `TRUE`, `FALSE` (Indique si l'utilisateur est un administrateur) |
 |                     | `id_vehicule`           | `INT`                          | Référence à `Vehicule.id_vehicule` (Identifiant du véhicule) |
-|                     | `id_formation`          | `INT`                          | Référence à `Formation.id_formation` (Identifiant de la formation) |
 |                     | `username`              | `VARCHAR(50)`                  | Chaîne de caractères (Nom d'utilisateur unique)      |
 |                     | `password`              | `VARCHAR(50)`                  | Chaîne de caractères (Mot de passe)            |
 | **Vehicule**        | `id_vehicule`           | `INT`                          | Valeur auto-incrémentée (Identifiant unique du véhicule) |
