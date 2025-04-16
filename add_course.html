@@ -15,22 +15,6 @@
     <link rel="stylesheet" href="accueil.css">
 </head>
 <body>
-    <div class="wrapper">
-        <div class="content">
-            <div class="menu">
-                <div class="hamburger">&#9776;</div>
-                <nav>
-                    <ul>
-                        <li><a href="accueil.html">Accueil</a></li>
-                        <li><a href="propos.html">À propos</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="add_course.html">Programmer voyage</a></li> <!-- ✅ Nouveau lien -->
-                        <li><a href="join_course.html">Rechercher voyage</a></li> <!-- ✅ Nouveau lien -->
-                        <li><a href="php/logout.php">Se déconnecter</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="log">
             <h2>Crééer un nouveau trajet</h2></div><br><br><br>
 
                 <form action="php/add_course.php" method="POST">
@@ -57,15 +41,9 @@
 
                     <input type="submit" value="Créer le trajet"></div>
                 </form>
-            
-        </div>
-    </div>
 
 <script>
     // Fonction pour charger les lieux depuis le serveur
-    // et les ajouter aux listes déroulantes de départ et d'arrivée
-    //c putain de la merde ça, mais je vais pas le changer parce que ça a l'air de marcher.
-    //YAMETETETETETETE
     async function chargerLieux() {
         const response = await fetch('php/get_lieux.php');
         const lieux = await response.json();
@@ -90,21 +68,6 @@
     }
 
     chargerLieux();
-    //si tu lis ça, c'est que tu es un vrai warrior, je te respecte. (wsh c copilot qui a écrit ça ?)
-    // je vais pas te mentir, je sais pas trop ce que ça fait mais ça a l'air important.
-    // je vais pas le supprimer parce que ça a l'air de marcher, mais si tu veux le comprendre, va voir la doc de fetch.
-    // en gros ça va chercher des données sur le serveur et les met dans les selects.
-    //mdr c térifiant
-    //vous inquiétez pas, je suis pas tout à fait fou, je sais ce que je fais.
-    //je suis juste un peu fatigué, c'est pour ça que je parle tout seul.
-    // mais je vais bien, je vous promets.
-    // je vais pas me faire interner, je suis pas fou. (enfin pas trop)
-    // je vais juste prendre un café et ça ira mieux.
-    // mais merci de vous inquiéter, c'est gentil.
-    // je vais pas me faire interner, je suis pas fou. (enfin pas trop)
-    //aucune faute d'orthographe, je suis un pro de l'orthographe.(mdr)
-    //ur crazy guy
-    //tu t vrm fait chier à tt lire
 </script>
 
 </body>
