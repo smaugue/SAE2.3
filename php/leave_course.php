@@ -13,36 +13,25 @@ if (!isset($_SESSION['user_id'])) {
 $id_user = $_SESSION['user_id'];  // Récupérer l'ID de l'utilisateur connecté
 $id_course = $_POST['id_course'];  // ID de la course reçue par POST
 
-// Vérifier si l'utilisateur est déjà inscrit à cette course
+// Vérifier si l'utilisateur est inscrit à cette course
 $sql_check = "SELECT * FROM Equipage WHERE id_user = :id_user AND id_course = :id_course";
 $stmt_check = $pdo->prepare($sql_check);
 $stmt_check->execute(['id_user' => $id_user, 'id_course' => $id_course]);
 
-if ($stmt_check->rowCount() > 0) {
-    echo json_encode(['success' => false, 'message' => 'Vous êtes déjà inscrit à cette course']);
+if ($stmt_check->rowCount() == 0) {
+    echo json_encode(['success' => false, 'message' => 'Vous n\'êtes pas inscrit à cette course']);
     exit;
 }
 
-// Vérifier si des places sont disponibles
-$sql_check_place = "SELECT Nb_place_disponible FROM Course WHERE id_course = :id_course";
-$stmt_check_place = $pdo->prepare($sql_check_place);
-$stmt_check_place->execute(['id_course' => $id_course]);
-$course = $stmt_check_place->fetch();
-
-if ($course['Nb_place_disponible'] <= 0) {
-    echo json_encode(['success' => false, 'message' => 'Il n\'y a plus de places disponibles']);
-    exit;
-}
-
-// Inscrire l'utilisateur à la course
-$sql = "INSERT INTO Equipage (id_course, id_user) VALUES (:id_course, :id_user)";
+// Supprimer l'inscription de l'utilisateur à la course
+$sql = "DELETE FROM Equipage WHERE id_course = :id_course AND id_user = :id_user";
 $stmt = $pdo->prepare($sql);
 $stmt->execute(['id_course' => $id_course, 'id_user' => $id_user]);
 
 // Mettre à jour le nombre de places disponibles
-$sql_update = "UPDATE Course SET Nb_place_disponible = Nb_place_disponible - 1 WHERE id_course = :id_course";
+$sql_update = "UPDATE Course SET Nb_place_disponible = Nb_place_disponible + 1 WHERE id_course = :id_course";
 $stmt_update = $pdo->prepare($sql_update);
 $stmt_update->execute(['id_course' => $id_course]);
 
-echo json_encode(['success' => true, 'message' => 'Vous avez rejoint la course !']);
+echo json_encode(['success' => true, 'message' => 'Vous avez quitté la course.']);
 ?>

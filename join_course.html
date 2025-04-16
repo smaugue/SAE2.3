@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-     
     <meta charset="UTF-8">
     <title>Liste des courses</title>
     <style>
@@ -75,42 +74,16 @@
             const list = document.getElementById('course-list');
             list.innerHTML = '';
 
-            const coursesScored = courses.map(course => {
-                let score = 0;
-
-                if (ville && course.ville_depart.toLowerCase().includes(ville)) {
-                    score += 1;
-                }
-
-                if (jour !== '') {
-                    const date = new Date(course.DH_départ);
-                    const jsJour = date.getDay(); // 0 = dimanche
-                    if (parseInt(jour) === jsJour) {
-                        score += 1;
-                    }
-                }
-
-                return { ...course, score };
-            });
-
-            coursesScored.sort((a, b) => {
-                if (b.score !== a.score) return b.score - a.score;
-                return new Date(a.DH_départ) - new Date(b.DH_départ);
-            });
-
-            if (coursesScored.length === 0) {
-                list.innerHTML = '<p>Aucune course trouvée.</p>';
-                return;
-            }
-
-            coursesScored.forEach(course => {
+            // Affichage des courses disponibles
+            courses.forEach(course => {
                 const div = document.createElement('div');
-                div.className = 'course' + (course.score > 0 ? ' pertinent' : '');
+                div.className = 'course';
                 div.innerHTML = `
                     <p><strong>Départ :</strong> ${course.depart} (${course.ville_depart})<br><strong>Date :</strong> ${new Date(course.DH_départ).toLocaleString()}</p>
                     <p><strong>Arrivée :</strong> ${course.arrivee}<br><strong>Date :</strong> ${new Date(course.DH_arrive).toLocaleString()}</p>
                     <p><strong>Places dispo :</strong> ${course.Nb_place_disponible}</p>
                     <button onclick="rejoindreCourse(${course.id_course})">Rejoindre</button>
+                    <button onclick="quitterCourse(${course.id_course})">Quitter</button>
                 `;
                 list.appendChild(div);
             });
@@ -125,12 +98,27 @@
             .then(res => res.json())
             .then(result => {
                 alert(result.message);
-                if (result.success) {
-                    chargerCourses();
-                }
+                chargerCourses();
             })
             .catch(err => {
-                console.error("Erreur lors de la tentative d'inscription :", err);
+                console.error("Erreur lors de l'inscription :", err);
+                alert("Une erreur est survenue.");
+            });
+        }
+
+        function quitterCourse(id_course) {
+            fetch('php/leave_course.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ id_course })
+            })
+            .then(res => res.json())
+            .then(result => {
+                alert(result.message);
+                chargerCourses();
+            })
+            .catch(err => {
+                console.error("Erreur lors de la suppression de l'inscription :", err);
                 alert("Une erreur est survenue.");
             });
         }
