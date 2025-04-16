@@ -8,18 +8,22 @@
             font-family: sans-serif;
             padding: 20px;
         }
+
         .filters {
             margin-bottom: 20px;
         }
+
         .course {
             border: 1px solid #ccc;
             padding: 15px;
             margin-bottom: 10px;
             border-radius: 8px;
         }
+
         .course p {
             margin: 5px 0;
         }
+
         .pertinent {
             background-color: #e6ffed;
             border-left: 5px solid #4caf50;
@@ -56,20 +60,13 @@
             const jour = document.getElementById('jour').value;
 
             fetch('php/get_courses.php')
-                .then(response => response.text())
-                .then(text => {
-                    try {
-                        const data = JSON.parse(text);
-                        afficherCourses(data, ville, jour);
-                    } catch (e) {
-                        console.error("Erreur de parsing JSON :", e);
-                        console.log("Réponse brute du serveur :", text);
-                        document.getElementById('course-list').innerHTML = "<p style='color:red;'>Erreur : réponse invalide du serveur.</p>";
-                    }
+                .then(response => response.json())
+                .then(courses => {
+                    afficherCourses(courses, ville, jour);
                 })
                 .catch(err => {
-                    console.error("Erreur lors de la requête :", err);
-                    document.getElementById('course-list').innerHTML = "<p style='color:red;'>Impossible de charger les courses.</p>";
+                    console.error("Erreur lors du chargement des courses :", err);
+                    document.getElementById('course-list').innerHTML = "<p style='color:red;'>Erreur lors du chargement des courses.</p>";
                 });
         }
 
@@ -86,7 +83,7 @@
 
                 if (jour !== '') {
                     const date = new Date(course.DH_départ);
-                    const jsJour = date.getDay(); // 0 à 6
+                    const jsJour = date.getDay(); // 0 = dimanche
                     if (parseInt(jour) === jsJour) {
                         score += 1;
                     }
@@ -122,17 +119,20 @@
             fetch('php/join_course.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'id_course=' + encodeURIComponent(id_course)
+                body: new URLSearchParams({ id_course })
             })
             .then(res => res.json())
-            .then(data => {
-                alert(data.message);
-                if (data.success) chargerCourses(); // recharge la liste si succès
+            .then(result => {
+                alert(result.message);
+                if (result.success) {
+                    chargerCourses();
+                }
             })
-            .catch(() => alert("Erreur lors de la tentative de rejoindre la course."));
+            .catch(err => {
+                console.error("Erreur lors de la tentative d'inscription :", err);
+                alert("Une erreur est survenue.");
+            });
         }
-
-
 
         // Chargement initial
         chargerCourses();

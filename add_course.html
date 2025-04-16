@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script>
+        fetch('php/is_connected.php');
+    </script>
+        
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer un trajet</title>
@@ -61,18 +65,11 @@
         </div>
     </div>
 
-    <!-- Script JS -->
-    <script src="accueil.js"></script>
-
-
-
 <script>
     // Fonction pour charger les lieux depuis le serveur
-    // et les ajouter aux listes déroulantes de départ et d'arrivée
-    //c putain de la merde ça, mais je vais pas le changer parce que ça a l'air de marcher.
-    //YAMETETETETETETE
     async function chargerLieux() {
         const response = await fetch('php/get_lieux.php');
+        print(response);
         const lieux = await response.json();
 
         const departSelect = document.getElementById('select-depart');
@@ -85,31 +82,19 @@
 
         // On ajoute les options pour chaque lieu
         lieux.forEach(lieu => {
+            try {
             const option = document.createElement('option');
             option.value = lieu.id_lieux;
             option.textContent = `${lieu.Nom} (${lieu.Ville})`;
-        //si tu capt qq chose je t laissé mon 06 (06-69-69-69-69)
             departSelect.appendChild(option.cloneNode(true));
             arriveeSelect.appendChild(option);
+            } catch (error) {
+                console.error('Erreur lors de l\'ajout de l\'option :', error);
+            }
         });
     }
 
     chargerLieux();
-    //si tu lis ça, c'est que tu es un vrai warrior, je te respecte. (wsh c copilot qui a écrit ça ?)
-    // je vais pas te mentir, je sais pas trop ce que ça fait mais ça a l'air important.
-    // je vais pas le supprimer parce que ça a l'air de marcher, mais si tu veux le comprendre, va voir la doc de fetch.
-    // en gros ça va chercher des données sur le serveur et les met dans les selects.
-    //mdr c térifiant
-    //vous inquiétez pas, je suis pas tout à fait fou, je sais ce que je fais.
-    //je suis juste un peu fatigué, c'est pour ça que je parle tout seul.
-    // mais je vais bien, je vous promets.
-    // je vais pas me faire interner, je suis pas fou. (enfin pas trop)
-    // je vais juste prendre un café et ça ira mieux.
-    // mais merci de vous inquiéter, c'est gentil.
-    // je vais pas me faire interner, je suis pas fou. (enfin pas trop)
-    //aucune faute d'orthographe, je suis un pro de l'orthographe.(mdr)
-    //ur crazy guy
-    //tu t vrm fait chier à tt lire
 </script>
 
 </body>

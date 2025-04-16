@@ -1,23 +1,21 @@
 CREATE TABLE Users(
-   id_user INT,
+   id_user INT AUTO_INCREMENT,
    Nom VARCHAR(50) NOT NULL,
-   Prénom VARCHAR(50) NOT NULL,
+   Prenom VARCHAR(50) NOT NULL,
    Groupe VARCHAR(50) NOT NULL,
+   Formation VARCHAR(50),
    Sous_groupe VARCHAR(50),
-   Est_admin LOGICAL NOT NULL,
+   Est_admin BOOL NOT NULL,
    id_vehicule INT,
-   id_formation INT NOT NULL,
    username VARCHAR(50) NOT NULL,
-   password VARCHAR(50) NOT NULL,
+   psswd VARCHAR(50) NOT NULL,
    PRIMARY KEY(id_user),
    UNIQUE(id_vehicule),
-   UNIQUE(id_formation),
-   UNIQUE(username),
-   UNIQUE(password)
+   UNIQUE(username)
 );
 
 CREATE TABLE Vehicule(
-   id_vehicule INT,
+   id_vehicule INT AUTO_INCREMENT,
    id_user INT NOT NULL,
    Type VARCHAR(50) NOT NULL,
    Nb_place INT NOT NULL,
@@ -46,7 +44,7 @@ CREATE TABLE Info_univ(
 );
 
 CREATE TABLE Course(
-   id_course INT,
+   id_course INT AUTO_INCREMENT,
    id_conducteur INT NOT NULL,
    DH_départ DATETIME NOT NULL,
    DH_arrive DATETIME NOT NULL,
@@ -55,13 +53,12 @@ CREATE TABLE Course(
    Prix INT,
    id_lieux_départ INT NOT NULL,
    id_lieux_arrivé INT NOT NULL,
-   PRIMARY KEY(id_course),
-   UNIQUE(id_conducteur)
+   PRIMARY KEY(id_course)
 );
 
 CREATE TABLE Lieux(
-   id_lieux INT,
-   Nom VARCHAR(50) NOT NULL,
+   id_lieux INT AUTO_INCREMENT,
+   Nom VARCHAR(50),
    Ville VARCHAR(50) NOT NULL,
    CP INT NOT NULL,
    Rue VARCHAR(50) NOT NULL,

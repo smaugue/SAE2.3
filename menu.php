@@ -1,3 +1,6 @@
+<?php
+require_once 'php/is_admin.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>

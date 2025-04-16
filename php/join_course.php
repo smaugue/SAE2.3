@@ -1,63 +1,61 @@
 <?php
+session_start();
 header('Content-Type: application/json');
 
-require_once 'is_connected.php';   // Définit $id_user
-require_once 'db_connect.php';     // Donne accès à $pdo
+require_once 'db_connect.php';
 
-$debug = []; // Pour stocker les infos de debug
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['success' => false, 'message' => 'Utilisateur non connecté.']);
+    exit;
+}
 
-$debug[] = "Début du script - utilisateur connecté : $id_user";
-
-// Récupère l’ID de la course
+$id_user = intval($_SESSION['user_id']);
 $id_course = isset($_POST['id_course']) ? intval($_POST['id_course']) : 0;
-$debug[] = "ID de course reçu : $id_course";
 
 if ($id_course <= 0) {
-    $debug[] = "ID de course invalide.";
-    echo json_encode(['success' => false, 'message' => 'ID de course invalide.', 'debug' => $debug]);
+    echo json_encode(['success' => false, 'message' => 'ID de course invalide.']);
     exit;
 }
 
 try {
-    // Vérifie l’inscription existante
-    $stmt = $pdo->prepare("SELECT 1 FROM Equipage WHERE id_course = ? AND id_user = ?");
-    $stmt->execute([$id_course, $id_user]);
-    if ($stmt->fetch()) {
-        $debug[] = "Utilisateur déjà inscrit à cette course.";
-        echo json_encode(['success' => false, 'message' => 'Vous êtes déjà inscrit à cette course.', 'debug' => $debug]);
-        exit;
-    }
-
-    // Vérifie le nombre de places
-    $stmt = $pdo->prepare("SELECT Nb_place_disponible FROM Course WHERE id_course = ?");
+    // Récupère la course
+    $stmt = $pdo->prepare("SELECT id_conducteur, Nb_place_disponible FROM Course WHERE id_course = ?");
     $stmt->execute([$id_course]);
     $course = $stmt->fetch();
 
     if (!$course) {
-        $debug[] = "Course introuvable en base.";
-        echo json_encode(['success' => false, 'message' => 'Course introuvable.', 'debug' => $debug]);
+        echo json_encode(['success' => false, 'message' => 'Course introuvable.']);
         exit;
     }
 
-    $debug[] = "Places disponibles : " . $course['Nb_place_disponible'];
+    if ($course['id_conducteur'] == $id_user) {
+        echo json_encode(['success' => false, 'message' => 'Vous êtes le conducteur de cette course.']);
+        exit;
+    }
 
     if ($course['Nb_place_disponible'] <= 0) {
-        $debug[] = "Plus de places disponibles.";
-        echo json_encode(['success' => false, 'message' => 'Aucune place disponible.', 'debug' => $debug]);
+        echo json_encode(['success' => false, 'message' => 'Aucune place disponible.']);
         exit;
     }
 
-    // Ajoute l'utilisateur à l'équipage
-    $pdo->prepare("INSERT INTO Equipage (id_course, id_user) VALUES (?, ?)")->execute([$id_course, $id_user]);
-    $debug[] = "Inscription à l’équipage effectuée.";
+    // Vérifie si l'utilisateur est déjà inscrit
+    $stmt = $pdo->prepare("SELECT 1 FROM Equipage WHERE id_course = ? AND id_user = ?");
+    $stmt->execute([$id_course, $id_user]);
+    if ($stmt->fetch()) {
+        echo json_encode(['success' => false, 'message' => 'Vous êtes déjà inscrit à cette course.']);
+        exit;
+    }
 
-    // Décrémente le nombre de places
-    $pdo->prepare("UPDATE Course SET Nb_place_disponible = Nb_place_disponible - 1 WHERE id_course = ?")->execute([$id_course]);
-    $debug[] = "Mise à jour du nombre de places effectuée.";
+    // Inscription dans Equipage
+    $stmt = $pdo->prepare("INSERT INTO Equipage (id_course, id_user) VALUES (?, ?)");
+    $stmt->execute([$id_course, $id_user]);
 
-    echo json_encode(['success' => true, 'message' => 'Inscription réussie !', 'debug' => $debug]);
+    // Mise à jour du nombre de places
+    $stmt = $pdo->prepare("UPDATE Course SET Nb_place_disponible = Nb_place_disponible - 1 WHERE id_course = ?");
+    $stmt->execute([$id_course]);
+
+    echo json_encode(['success' => true, 'message' => 'Inscription réussie.']);
 
 } catch (Exception $e) {
-    $debug[] = "Exception attrapée : " . $e->getMessage();
-    echo json_encode(['success' => false, 'message' => 'Erreur serveur.', 'debug' => $debug]);
+    echo json_encode(['success' => false, 'message' => 'Erreur serveur.']);
 }
