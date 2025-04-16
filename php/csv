@@ -1,5 +1,6 @@
 <?php
 require 'db_connect.php';
+
 // Vérifie si un fichier a été envoyé
 if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === 0) {
     $file = $_FILES['csv_file']['tmp_name'];
@@ -8,8 +9,8 @@ if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === 0) {
         $headers = fgetcsv($handle, 1000, ',');
 
         while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-            $stmt = $pdo->prepare("INSERT INTO etudiants (nom, prenom, email, ville) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$data[0], $data[1], $data[2], $data[3]]);
+            $stmt = $pdo->prepare("INSERT INTO users (username, psswd, Nom, Prenom, Groupe, EST_admin, Formation) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]]);
         }
 
         fclose($handle);
