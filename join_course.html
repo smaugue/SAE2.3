@@ -68,6 +68,7 @@
                     console.error("Erreur lors du chargement des courses :", err);
                     document.getElementById('course-list').innerHTML = "<p style='color:red;'>Erreur lors du chargement des courses.</p>";
                 });
+                print(response);
         }
 
         function afficherCourses(courses, ville, jour) {
