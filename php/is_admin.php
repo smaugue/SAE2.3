@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['admin'] != 1) {
+if (!$_SESSION['is_admin']) {
     header("Location: php/logout.php");
     exit();
 }
