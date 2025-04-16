@@ -1,48 +1,61 @@
 <?php
-require 'is_connected.php';  // Vérification si l'utilisateur est connecté
-require 'db_connect.php';  // Connexion à la base de données
-
+session_start();
 header('Content-Type: application/json');
 
-// Vérification si l'utilisateur est bien connecté
+require_once 'db_connect.php';
+
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'Vous devez être connecté']);
+    echo json_encode(['success' => false, 'message' => 'Utilisateur non connecté.']);
     exit;
 }
 
-$id_user = $_SESSION['user_id'];  // Récupérer l'ID de l'utilisateur connecté
-$id_course = $_POST['id_course'];  // ID de la course reçue par POST
+$id_user = intval($_SESSION['user_id']);
+$id_course = isset($_POST['id_course']) ? intval($_POST['id_course']) : 0;
 
-// Vérifier si l'utilisateur est déjà inscrit à cette course
-$sql_check = "SELECT * FROM Equipage WHERE id_user = :id_user AND id_course = :id_course";
-$stmt_check = $pdo->prepare($sql_check);
-$stmt_check->execute(['id_user' => $id_user, 'id_course' => $id_course]);
-
-if ($stmt_check->rowCount() > 0) {
-    echo json_encode(['success' => false, 'message' => 'Vous êtes déjà inscrit à cette course']);
+if ($id_course <= 0) {
+    echo json_encode(['success' => false, 'message' => 'ID de course invalide.']);
     exit;
 }
 
-// Vérifier si des places sont disponibles
-$sql_check_place = "SELECT Nb_place_disponible FROM Course WHERE id_course = :id_course";
-$stmt_check_place = $pdo->prepare($sql_check_place);
-$stmt_check_place->execute(['id_course' => $id_course]);
-$course = $stmt_check_place->fetch();
+try {
+    // Récupère la course
+    $stmt = $pdo->prepare("SELECT id_conducteur, Nb_place_disponible FROM Course WHERE id_course = ?");
+    $stmt->execute([$id_course]);
+    $course = $stmt->fetch();
 
-if ($course['Nb_place_disponible'] <= 0) {
-    echo json_encode(['success' => false, 'message' => 'Il n\'y a plus de places disponibles']);
-    exit;
+    if (!$course) {
+        echo json_encode(['success' => false, 'message' => 'Course introuvable.']);
+        exit;
+    }
+
+    if ($course['id_conducteur'] == $id_user) {
+        echo json_encode(['success' => false, 'message' => 'Vous êtes le conducteur de cette course.']);
+        exit;
+    }
+
+    if ($course['Nb_place_disponible'] <= 0) {
+        echo json_encode(['success' => false, 'message' => 'Aucune place disponible.']);
+        exit;
+    }
+
+    // Vérifie si l'utilisateur est déjà inscrit
+    $stmt = $pdo->prepare("SELECT 1 FROM Equipage WHERE id_course = ? AND id_user = ?");
+    $stmt->execute([$id_course, $id_user]);
+    if ($stmt->fetch()) {
+        echo json_encode(['success' => false, 'message' => 'Vous êtes déjà inscrit à cette course.']);
+        exit;
+    }
+
+    // Inscription dans Equipage
+    $stmt = $pdo->prepare("INSERT INTO Equipage (id_course, id_user) VALUES (?, ?)");
+    $stmt->execute([$id_course, $id_user]);
+
+    // Mise à jour du nombre de places
+    $stmt = $pdo->prepare("UPDATE Course SET Nb_place_disponible = Nb_place_disponible - 1 WHERE id_course = ?");
+    $stmt->execute([$id_course]);
+
+    echo json_encode(['success' => true, 'message' => 'Inscription réussie.']);
+
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'message' => 'Erreur serveur.']);
 }
-
-// Inscrire l'utilisateur à la course
-$sql = "INSERT INTO Equipage (id_course, id_user) VALUES (:id_course, :id_user)";
-$stmt = $pdo->prepare($sql);
-$stmt->execute(['id_course' => $id_course, 'id_user' => $id_user]);
-
-// Mettre à jour le nombre de places disponibles
-$sql_update = "UPDATE Course SET Nb_place_disponible = Nb_place_disponible - 1 WHERE id_course = :id_course";
-$stmt_update = $pdo->prepare($sql_update);
-$stmt_update->execute(['id_course' => $id_course]);
-
-echo json_encode(['success' => true, 'message' => 'Vous avez rejoint la course !']);
-?>
