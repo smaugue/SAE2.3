@@ -5,7 +5,6 @@ require 'db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $id_user = $_SESSION["user_id"];
-    $nom = $_POST['nom'];
     $ville = $_POST['ville'];
     $cp = $_POST['cp'];
     $rue = $_POST['rue'];
@@ -13,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Insérer un nouveau lieu de type "domicile"
-        $stmt = $pdo->prepare("INSERT INTO Lieux (Nom, Ville, CP, Rue, Numéro, Type) VALUES (?, ?, ?, ?, ?, 'home')");
-        $stmt->execute([$nom, $ville, $cp, $rue, $numero]);
+        $stmt = $pdo->prepare("INSERT INTO Lieux (Nom, Ville, CP, Rue, Numéro, Type) VALUES ('Domicile', ?, ?, ?, ?, 'home')");
+        $stmt->execute([$ville, $cp, $rue, $numero]);
 
         // Récupérer l'ID du lieu inséré
         $id_lieux = $pdo->lastInsertId();
