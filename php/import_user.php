@@ -1,4 +1,5 @@
 <?php
+require 'is_admin.php';
 require 'db_connect.php';
 
 // Vérifie si un fichier a été envoyé

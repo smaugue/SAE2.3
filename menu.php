@@ -1,6 +1,3 @@
-<?php
-require_once 'php/is_admin.php';
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,24 +5,8 @@ require_once 'php/is_admin.php';
     <title>Menu de Navigation</title>
 </head>
 <body>
-    <h1>Menu de Développement</h1>
-
-    <ul>
-        <li><a href="register.html">1. Créer un compte utilisateur</a></li>
-        <li><a href="registercar.html">2. Enregistrer un véhicule</a></li>
-        <li><a href="add_domicile.html">3. Ajouter un domicile</a></li>
-        <li><a href="add_course.html">4. Créer un trajet</a></li>
-    </ul>
-
-    <p>Need la coe d'un user pour 2 à 4</p>
-    <?php
-        session_start();
-        if (isset($_SESSION["user_id"])) {
-            echo "Utilisateur connecté : " . $_SESSION["user_id"];
-        } else {
-            echo "Aucun utilisateur connecté.";
-        }
-    ?>
-
+    <script>
+        fetch('php/import_user.php')
+    </script>
 </body>
 </html>
