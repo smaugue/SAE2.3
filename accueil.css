@@ -10,20 +10,9 @@ body {
 }
 
 /* ======================= WRAPPER ======================= */
-.wrapper3 {
-    width: 100vw;
-    height: 100vh;
-    background-image: url('image/fond.png');
-    background-size: cover;
-    background-position: center;
-    padding: 30px;
-    overflow: hidden;
-}
-
 .wrapper {
     width: 100vw;
     height: auto;
-    background-image: url('image/fond.png');
     background-size: cover;
     background-position: center;
     padding: 30px;
@@ -31,15 +20,12 @@ body {
     background-attachment: fixed;
 }
 
-.wrapper2 {
-    width: 100vw;
-    height: auto;
+.car{
+    background-image: url('image/fond.png');
+}
+
+.bus {
     background-image: url('image/Bus.png');
-    background-size: cover;
-    background-position: center;
-    padding: 30px;
-    overflow: hidden;
-    background-attachment: fixed;
 }
 
 /* ======================= CONTENU SOMBRE ======================= */
