@@ -1,5 +1,7 @@
 # SAE2.3
 
+
+
 # Structure du site
 
 ## 📌 Fonctionnalités principales
@@ -61,13 +63,14 @@
 │   └── registercar.php
 ```
 
+# 🗄️ Structure de la Base de Données
 
 ## Modèle Conceptuel de Données
 
 
 ![Schéma](image/MCD.png)
 
-## 🗄️ Structure de la Base de Données
+## Modèle Physique de Données
 
 | **Table**        | **Colonne**            | **Type de données**    | **Valeurs possibles / Description**                         |
 |------------------|------------------------|-------------------------|-------------------------------------------------------------|
