@@ -90,143 +90,145 @@
             </div>
 
             <div id="course-list"></div>
+
+            <script>
+                // Fonction pour charger les courses disponibles avec les filtres appliqués
+                function chargerCourses() {
+                    const ville = document.getElementById('ville').value.trim().toLowerCase();  // Récupère la ville de départ
+                    const jour = document.getElementById('jour').value;  // Récupère le jour sélectionné
+            
+                    fetch('php/get_courses.php')  // Requête pour récupérer les courses disponibles
+                        .then(response => response.json())  // Réponse sous forme de JSON
+                        .then(courses => {
+                            afficherCourses(courses, ville, jour);  // Affiche les courses filtrées
+                        })
+                        .catch(err => {
+                            console.error("Erreur lors du chargement des courses :", err);
+                            document.getElementById('course-list').innerHTML = "<p style='color:red;'>Erreur lors du chargement des courses.</p>";  // Gestion des erreurs
+                        });
+                }
+            
+                // Fonction pour afficher les courses après application des filtres
+                function afficherCourses(courses, ville, jour) {
+                    const list = document.getElementById('course-list');
+                    list.innerHTML = '';  // Réinitialise la liste de courses
+            
+                    // On attribue un score à chaque course en fonction des filtres
+                    const coursesScored = courses.map(course => {
+                        let score = 0;
+            
+                        // Vérification si la course correspond à la ville de départ
+                        if (ville && course.ville_depart.toLowerCase().includes(ville)) {
+                            score += 1;
+                        }
+            
+                        // Vérification si la course correspond au jour sélectionné
+                        if (jour !== '') {
+                            const date = new Date(course.DH_départ);
+                            const jsJour = date.getDay();  // 0 = dimanche
+                            if (parseInt(jour) === jsJour) {
+                                score += 1;
+                            }
+                        }
+            
+                        return { ...course, score };  // Retourne la course avec son score
+                    });
+            
+                    // Tri des courses en fonction du score et de la date
+                    coursesScored.sort((a, b) => {
+                        if (b.score !== a.score) return b.score - a.score;
+                        return new Date(a.DH_départ) - new Date(b.DH_départ);
+                    });
+            
+                    // Si aucune course n'est trouvée
+                    if (coursesScored.length === 0) {
+                        list.innerHTML = '<p>Aucune course trouvée.</p>';
+                        return;
+                    }
+            
+                    // Affichage des courses filtrées
+                    coursesScored.forEach(course => {
+                        const div = document.createElement('div');
+                        div.className = 'course' + (course.score > 0 ? ' pertinent' : '');  // Ajoute une classe "pertinent" si la course est filtrée
+                        div.innerHTML = `
+                            <p><strong>Départ :</strong> ${course.depart} (${course.ville_depart})<br><strong>Date :</strong> ${new Date(course.DH_départ).toLocaleString()}</p>
+                            <p><strong>Arrivée :</strong> ${course.arrivee}<br><strong>Date :</strong> ${new Date(course.DH_arrive).toLocaleString()}</p>
+                            <p><strong>Places dispo :</strong> ${course.Nb_place_disponible}</p>
+                            <button onclick="rejoindreCourse(${course.id_course})">Rejoindre</button>
+                            <button onclick="quitterCourse(${course.id_course})">Quitter</button>
+                            <button onclick="supprimerCourse(${course.id_course})">Supprimer</button>
+                        `;
+                        list.appendChild(div);  // Ajoute chaque course à la liste
+                    });
+                }
+            
+                // Fonction pour rejoindre une course
+                function rejoindreCourse(id_course) {
+                    fetch('php/join_course.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams({ id_course })  // Passe l'ID de la course pour l'inscription
+                    })
+                    .then(res => res.json())
+                    .then(result => {
+                        alert(result.message);  // Affiche le message de retour
+                        if (result.success) {
+                            chargerCourses();  // Recharge les courses après l'inscription
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Erreur lors de la tentative d'inscription :", err);
+                        alert("Une erreur est survenue.");
+                    });
+                }
+            
+                // Fonction pour quitter une course (désinscription)
+                function quitterCourse(id_course) {
+                    fetch('php/leave_course.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams({ id_course })  // Passe l'ID de la course pour la désinscription
+                    })
+                    .then(res => res.json())
+                    .then(result => {
+                        alert(result.message);  // Affiche le message de retour
+                        if (result.success) {
+                            chargerCourses();  // Recharge les courses après la désinscription
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Erreur lors de la tentative de désinscription :", err);
+                        alert("Une erreur est survenue.");
+                    });
+                }
+            
+                // Fonction pour supprimer une course (pour le conducteur)
+                function supprimerCourse(id_course) {
+                    fetch('php/delete_course.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams({ id_course })  // Passe l'ID de la course pour la suppression
+                    })
+                    .then(res => res.json())
+                    .then(result => {
+                        alert(result.message);  // Affiche le message de retour
+                        if (result.success) {
+                            chargerCourses();  // Recharge les courses après la suppression
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Erreur lors de la tentative de suppression de la course :", err);
+                        alert("Une erreur est survenue.");
+                    });
+                }
+            
+                // Chargement initial des courses
+                chargerCourses();
+            </script>
         </div>
     </div>
 
-    <script>
-        // Fonction pour charger les courses disponibles avec les filtres appliqués
-        function chargerCourses() {
-            const ville = document.getElementById('ville').value.trim().toLowerCase();  // Récupère la ville de départ
-            const jour = document.getElementById('jour').value;  // Récupère le jour sélectionné
-    
-            fetch('php/get_courses.php')  // Requête pour récupérer les courses disponibles
-                .then(response => response.json())  // Réponse sous forme de JSON
-                .then(courses => {
-                    afficherCourses(courses, ville, jour);  // Affiche les courses filtrées
-                })
-                .catch(err => {
-                    console.error("Erreur lors du chargement des courses :", err);
-                    document.getElementById('course-list').innerHTML = "<p style='color:red;'>Erreur lors du chargement des courses.</p>";  // Gestion des erreurs
-                });
-        }
-    
-        // Fonction pour afficher les courses après application des filtres
-        function afficherCourses(courses, ville, jour) {
-            const list = document.getElementById('course-list');
-            list.innerHTML = '';  // Réinitialise la liste de courses
-    
-            // On attribue un score à chaque course en fonction des filtres
-            const coursesScored = courses.map(course => {
-                let score = 0;
-    
-                // Vérification si la course correspond à la ville de départ
-                if (ville && course.ville_depart.toLowerCase().includes(ville)) {
-                    score += 1;
-                }
-    
-                // Vérification si la course correspond au jour sélectionné
-                if (jour !== '') {
-                    const date = new Date(course.DH_départ);
-                    const jsJour = date.getDay();  // 0 = dimanche
-                    if (parseInt(jour) === jsJour) {
-                        score += 1;
-                    }
-                }
-    
-                return { ...course, score };  // Retourne la course avec son score
-            });
-    
-            // Tri des courses en fonction du score et de la date
-            coursesScored.sort((a, b) => {
-                if (b.score !== a.score) return b.score - a.score;
-                return new Date(a.DH_départ) - new Date(b.DH_départ);
-            });
-    
-            // Si aucune course n'est trouvée
-            if (coursesScored.length === 0) {
-                list.innerHTML = '<p>Aucune course trouvée.</p>';
-                return;
-            }
-    
-            // Affichage des courses filtrées
-            coursesScored.forEach(course => {
-                const div = document.createElement('div');
-                div.className = 'course' + (course.score > 0 ? ' pertinent' : '');  // Ajoute une classe "pertinent" si la course est filtrée
-                div.innerHTML = `
-                    <p><strong>Départ :</strong> ${course.depart} (${course.ville_depart})<br><strong>Date :</strong> ${new Date(course.DH_départ).toLocaleString()}</p>
-                    <p><strong>Arrivée :</strong> ${course.arrivee}<br><strong>Date :</strong> ${new Date(course.DH_arrive).toLocaleString()}</p>
-                    <p><strong>Places dispo :</strong> ${course.Nb_place_disponible}</p>
-                    <button onclick="rejoindreCourse(${course.id_course})">Rejoindre</button>
-                    <button onclick="quitterCourse(${course.id_course})">Quitter</button>
-                    <button onclick="supprimerCourse(${course.id_course})">Supprimer</button>
-                `;
-                list.appendChild(div);  // Ajoute chaque course à la liste
-            });
-        }
-    
-        // Fonction pour rejoindre une course
-        function rejoindreCourse(id_course) {
-            fetch('php/join_course.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ id_course })  // Passe l'ID de la course pour l'inscription
-            })
-            .then(res => res.json())
-            .then(result => {
-                alert(result.message);  // Affiche le message de retour
-                if (result.success) {
-                    chargerCourses();  // Recharge les courses après l'inscription
-                }
-            })
-            .catch(err => {
-                console.error("Erreur lors de la tentative d'inscription :", err);
-                alert("Une erreur est survenue.");
-            });
-        }
-    
-        // Fonction pour quitter une course (désinscription)
-        function quitterCourse(id_course) {
-            fetch('php/leave_course.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ id_course })  // Passe l'ID de la course pour la désinscription
-            })
-            .then(res => res.json())
-            .then(result => {
-                alert(result.message);  // Affiche le message de retour
-                if (result.success) {
-                    chargerCourses();  // Recharge les courses après la désinscription
-                }
-            })
-            .catch(err => {
-                console.error("Erreur lors de la tentative de désinscription :", err);
-                alert("Une erreur est survenue.");
-            });
-        }
-    
-        // Fonction pour supprimer une course (pour le conducteur)
-        function supprimerCourse(id_course) {
-            fetch('php/delete_course.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ id_course })  // Passe l'ID de la course pour la suppression
-            })
-            .then(res => res.json())
-            .then(result => {
-                alert(result.message);  // Affiche le message de retour
-                if (result.success) {
-                    chargerCourses();  // Recharge les courses après la suppression
-                }
-            })
-            .catch(err => {
-                console.error("Erreur lors de la tentative de suppression de la course :", err);
-                alert("Une erreur est survenue.");
-            });
-        }
-    
-        // Chargement initial des courses
-        chargerCourses();
-    </script>
+
     <!-- Script JS -->
     <script src="js/accueil.js"></script>
 
