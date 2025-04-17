@@ -52,9 +52,8 @@
         <div class="content2">
 
             <!-- Titre principal -->
-            <div class="logo">
-                <h1 class="protest-strike-regular">Courses disponibles</h1><br>
-            </div>
+             <br><div class="log">
+                <h2>Courses disponibles</h2></div><br>
 
             <!-- Menu Burger -->
             <div class="menu">
@@ -73,10 +72,10 @@
 
 
             <div class="filters">
-                <label for="ville">Ville de départ :</label>
-                <input type="text" id="ville" name="ville"><br>
+                <label for="ville">Ville de départ :</label><br>
+                <input class="select2" type="text" id="ville" name="ville"><br><br>
 
-                <label for="jour">Jour :</label>
+                <label for="jour">Jour :</label><br>
                 <select class="select2" id="jour" name="jour">
                     <option value="">-- Tous les jours --</option>
                     <option value="1">Lundi</option>
@@ -86,7 +85,7 @@
                     <option value="5">Vendredi</option>
                     <option value="6">Samedi</option>
                     <option value="0">Dimanche</option>
-                </select>
+                </select><br>
 
                 <button onclick="chargerCourses()">Rechercher</button>
             </div>
