@@ -111,6 +111,7 @@ body {
     transform: translateX(100%);
     transition: opacity 0.3s ease, transform 0.3s ease;
     z-index: 10;
+    pointer-events: none;
 }
 
 .menu nav ul {
@@ -131,6 +132,7 @@ body {
 .menu.open nav {
     opacity: 1;
     transform: translateX(0);
+    pointer-events: auto;
 }
 
 /* ======================= ZONE IMAGES ======================= */
