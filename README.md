@@ -1,5 +1,64 @@
 # SAE2.3
 
+# Structure du site
+
+## 📌 Fonctionnalités principales
+
+| Étape / Fonctionnalité         | Terminé | Fichier HTML             | Fichiers PHP liés                                                        | Autres fichiers liés            | Description rapide |
+|--------------------------------|---------|--------------------------|---------------------------------------------------------------------------|-----------------------------------------------|--------------------|
+| 1. Création de compte          | ✅ Oui  | `register.html`          | `register.php`                                                            | `accueil.js`, `accueil.css`    | Formulaire de création d’un compte utilisateur |
+| 1'. Connexion / Déconnexion    | ✅ Oui  | `index.html`             | `login.php`, `logout.php`                                                | `accueil.js`, `accueil.css`     | Connexion et déconnexion d’un utilisateur |
+| 2. Ajout de domicile           | ✅ Oui  | `add_domicile.html`      | `add_domicile.php`                                                       | `accueil.js`, `accueil.css`     | Ajoute un lieu comme domicile de l’utilisateur |
+| 3. Enregistrement véhicule     | ✅ Oui  | `registercar.html`       | `registercar.php`                                                        | `accueil.js`, `accueil.css`     | Associe un véhicule à un utilisateur |
+| 4. Création de trajet          | ✅ Oui  | `add_course.html`        | `add_course.php`, `get_lieux.php`                                        | `accueil.js`, `accueil.css`     | Crée un trajet en sélectionnant les lieux |
+| 5. Gestion des trajets         | ✅ Oui  | `join_course.html`       | `join_course.php`, `leave_course.php`, `delete_course.php`, `get_course.php` | `accueil.js`, `accueil.css` | Rejoindre, quitter, ou supprimer un trajet |
+| 6. Accueil                     | ✅ Oui  | `accueil.html`           | `get_course.php`                                                          | `accueil.js`, `accueil.css`     | Page principale avec liste filtrée des trajets |
+| À propos du site               | ✅ Oui  | `propos.html`            |                                                                           | `accueil.js`, `accueil.css`    | Présentation du projet |
+| Page de contact                | ✅ Oui  | `contact.html`           |                                                                           | `accueil.js`, `accueil.css`    | Informations ou formulaire de contact |
+| Page administrateur            | ✅ Oui  | `menu.php`               | `import_user.php`, `is_admin.php`                                        | `accueil.js`, `accueil.css`     | Importation d'utilisateurs via CSV (admin) |
+| Chargement dynamique des lieux | ✅ Oui  | *(via `add_course.html`)*| `get_lieux.php`                                                           | `accueil.js`                   | Fournit les lieux dans les menus déroulants |
+| Chargement dynamique des trajets | ✅ Oui | *(via `join_course.html`, `accueil.html`)* | `get_course.php`                                 | `accueil.js`                         | Met à jour les trajets affichés pour l’utilisateur |
+
+---
+
+## 🗂️ Arborescence du site
+
+/                  # Racine du projet
+│
+├── accueil.html
+├── add_course.html
+├── add_domicile.html
+├── contact.html
+├── index.html
+├── join_course.html
+├── propos.html
+├── register.html
+├── registercar.html
+│
+├── css/
+│   └── accueil.css                # Feuille de style principale
+│
+├── js/
+│   └── accueil.js                # Script JS global (inclus partout)
+│
+├── php/
+│   ├── add_course.php
+│   ├── add_domicile.php
+│   ├── db_connect.php
+│   ├── delete_course.php
+│   ├── get_course.php
+│   ├── get_lieux.php
+│   ├── import_user.php
+│   ├── is_admin.php
+│   ├── is_connected.php
+│   ├── join_course.php
+│   ├── leave_course.php
+│   ├── login.php
+│   ├── logout.php
+│   ├── register.php
+│   └── registercar.php
+
+
 # Structure de la Base de Données
 
 Ce tableau décrit les types de données et les valeurs possibles pour les variables de chaque table dans la base de données.
@@ -70,20 +129,3 @@ Ce tableau décrit les types de données et les valeurs possibles pour les varia
   - `DATETIME` : Date et heure, au format `YYYY-MM-DD HH:MM:SS`.
   - `DATE` : Date, au format `YYYY-MM-DD`.
   - `LOGICAL` : Valeur logique, qui peut être `TRUE` ou `FALSE` (par exemple, pour `Est_admin`).
-
-# Structure du site
-
-| Étape / Fonctionnalité      | Terminé | Fichier HTML           | Fichier PHP (traitement) | Autres fichiers liés     | Description rapide |
-|----------------------------|---------|------------------------|---------------------------|---------------------------|--------------------|
-| 1. Création de compte      | **Oui** | `register.html`        | `register.php`            |                           | Formulaire de base pour créer un utilisateur |
-| 1'. Connexion              | **Oui** | `login.html`           | `login.php`               |                           | Connexion à un compte |
-| 2. Ajout de domicile       | **Oui** | `add_domicile.html`    | `add_domicile.php`        |                           | Ajoute un lieu et le lie comme domicile |
-| 3. Enregistrement véhicule | **Oui** | `registercar.html`     | `registercar.php`         |                           | Associe un véhicule à l’utilisateur |
-| 4. Création de trajet      | **Oui** | `add_course.html`      | `add_course.php`          | `get_lieux.php`           | Crée un trajet avec lieux sélectionnés |
-| 5. Rejoindre un trajet     | Non     | `join_course.html`     | `join_course.php`         | `get_course.php`          | Rejoindre un trajet existant |
-| 6. Accueil                 | **Oui** | `accueil.html`         |                           |                           | Accueil |
-| 7. Gestion des trajets     | Non     |                        |                           |                           | Supprimer ou quiter un trajet |
- **Autres Pages** 
-| Page de débugage           |         | `menu.php`             |                           |                           | Accès rapide à tous les formulaires |
-| Chargement dynamique lieux | **Oui** |                        | `get_lieux.php`           | utilisé dans `add_course.html` | Fournit les lieux au menu déroulant |
-| Chargement dynamique trajets | Non   |                        | `get_course.php`          | utilisé dans `join_course.html` | Fournit les trajets des utilisateur |
