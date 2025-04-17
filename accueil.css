@@ -13,20 +13,35 @@ body {
 .wrapper {
     width: 100vw;
     height: auto;
-    background-size: cover;
-    background-position: center;
     padding: 30px;
     overflow: hidden;
-    background-attachment: fixed;
 }
 
 .car{
     background-image: url('image/fond.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .bus {
     background-image: url('image/Bus.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
+
+.berline {
+    background-image: url('image/Berline.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
 
 /* ======================= CONTENU SOMBRE ======================= */
 .content {
