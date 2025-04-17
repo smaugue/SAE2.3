@@ -23,6 +23,8 @@
 
 ## 🗂️ Arborescence du site
 
+
+```
 /                  # Racine du projet
 │
 ├── accueil.html
@@ -57,6 +59,7 @@
 │   ├── logout.php
 │   ├── register.php
 │   └── registercar.php
+```
 
 
 # Structure de la Base de Données
