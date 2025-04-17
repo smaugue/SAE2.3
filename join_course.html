@@ -41,7 +41,7 @@
         }
 
         .pertinent {
-            background-color: #e6ffed;
+            /*g retiré le backgrnd pour plus de lisibilité*/
             border-left: 5px solid #4caf50;
         }
     </style>
@@ -61,8 +61,8 @@
                 <nav>
                     <ul>
                         <li><a href="accueil.html">Accueil</a></li>
-                        <li><a href="add_course.html">Programmer voyage</a></li> <!-- ✅ Nouveau lien -->
-                        <li><a href="join_course.html">Rechercher voyage</a></li> <!-- ✅ Nouveau lien -->
+                        <li><a href="add_course.html">Programmer voyage</a></li>
+                        <li><a href="join_course.html">Rechercher voyage</a></li>
                         <li><a href="registercar.html">Ajouter un véhicule</a></li>
                         <li><a href="propos.html">À propos</a></li>
                         <li><a href="contact.html">Contact</a></li>
@@ -104,21 +104,21 @@
                 // Fonction pour charger les courses disponibles avec les filtres appliqués
                 function chargerCourses() {
                     const ville = document.getElementById('ville').value.trim().toLowerCase();
-                    const villeArrivee = document.getElementById('ville_arrivee').value.trim().toLowerCase(); // 🔹 Nouveau
+                    const villeArrivee = document.getElementById('ville_arrivee').value.trim().toLowerCase();
                     const jour = document.getElementById('jour').value;
                     const selfCourses = document.getElementById('self_courses').checked;
                 
                     fetch('php/get_courses.php')
                         .then(response => response.json())
                         .then(courses => {
-                            afficherCourses(courses, ville, villeArrivee, jour, selfCourses); // 🔹 On ajoute la ville d'arrivée
+                            afficherCourses(courses, ville, villeArrivee, jour, selfCourses);
                         })
                         .catch(err => {
                             console.error("Erreur lors du chargement des courses :", err);
                             document.getElementById('course-list').innerHTML = "<p style='color:red;'>Erreur lors du chargement des courses.</p>";
                         });
                 }
-                
+
                 function afficherCourses(courses, ville, villeArrivee, jour, selfCourses) {
                     const list = document.getElementById('course-list');
                     list.innerHTML = '';
@@ -126,7 +126,7 @@
                     const coursesScored = courses.map(course => {
                         let score = 0;
                     
-                        if (selfCourses && course.is_conducteur) {
+                        if (selfCourses && course.is_conducteur) { //on priorétise un max ses courses si l'option est cochée
                             score += 3;
                         }
                     
