@@ -129,7 +129,7 @@
                     const coursesScored = courses.map(course => {
                         let score = 0;
 
-                        if (prix !== "" && parseFloat(course.Prix) > parseFloat(prix)) {
+                        if (prix !== "" && parseFloat(course.Prix) >= parseFloat(prix)) {
                             return { ...course, score: 0 }; // skip car trp cher
                         }
                     
