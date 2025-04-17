@@ -36,28 +36,51 @@
     </style>
 </head>
 <body>
-    <h1>Courses disponibles</h1>
+    <div class="wrapper">
+        <div class="content">
 
-    <div class="filters">
-        <label for="ville">Ville de départ :</label>
-        <input type="text" id="ville" name="ville">
+            <!-- Titre principal -->
+            <div class="logo">
+                <h1 class="protest-strike-regular">Courses disponibles</h1>
+            </div>
 
-        <label for="jour">Jour :</label>
-        <select id="jour" name="jour">
-            <option value="">-- Tous les jours --</option>
-            <option value="1">Lundi</option>
-            <option value="2">Mardi</option>
-            <option value="3">Mercredi</option>
-            <option value="4">Jeudi</option>
-            <option value="5">Vendredi</option>
-            <option value="6">Samedi</option>
-            <option value="0">Dimanche</option>
-        </select>
+            <!-- Menu Burger -->
+            <div class="menu">
+                <div class="hamburger">&#9776;</div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="page1.php">Programmer voyage</a></li> <!-- ✅ Nouveau lien -->
+                        <li><a href="page2.php">Rechercher voyage</a></li> <!-- ✅ Nouveau lien -->
+                    </ul>
+                </nav>
+            </div>
+    
 
-        <button onclick="chargerCourses()">Rechercher</button>
+            <div class="filters">
+                <label for="ville">Ville de départ :</label>
+                <input type="text" id="ville" name="ville">
+
+                <label for="jour">Jour :</label>
+                <select id="jour" name="jour">
+                    <option value="">-- Tous les jours --</option>
+                    <option value="1">Lundi</option>
+                    <option value="2">Mardi</option>
+                    <option value="3">Mercredi</option>
+                    <option value="4">Jeudi</option>
+                    <option value="5">Vendredi</option>
+                    <option value="6">Samedi</option>
+                    <option value="0">Dimanche</option>
+                </select>
+
+                <button onclick="chargerCourses()">Rechercher</button>
+            </div>
+
+            <div id="course-list"></div>
+        </div>
     </div>
-
-    <div id="course-list"></div>
 
     <script>
         // Fonction pour charger les courses disponibles avec les filtres appliqués
