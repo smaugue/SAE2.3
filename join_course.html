@@ -109,7 +109,7 @@
                     const villeArrivee = document.getElementById('ville_arrivee').value.trim().toLowerCase();
                     const jour = document.getElementById('jour').value;
                     const selfCourses = document.getElementById('self_courses').checked;
-                    const prix  = document.getElementById('prix').value.trim();
+                    const prix  = document.getElementById('prix').value;
                 
                     fetch('php/get_courses.php')
                         .then(response => response.json())
@@ -152,7 +152,7 @@
                             }
                         }
 
-                        if (prix && parseFloat(course.prix) > parseFloat(prix)) {
+                        if (parseInt(course.prix) > parseInt(prix)) {
                             score -= score; // Si le prix est supérieur, on retire le score
                         }
 
