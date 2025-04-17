@@ -20,6 +20,16 @@ body {
     overflow: hidden;
 }
 
+.wrapper2 {
+    width: 100vw;
+    height: auto;
+    background-image: url('image/fond.png');
+    background-size: cover;
+    background-position: center;
+    padding: 30px;
+    overflow: hidden;
+}
+
 /* ======================= CONTENU SOMBRE ======================= */
 .content {
     width: 100%;
@@ -41,6 +51,14 @@ body {
     color: white;
     padding: 20px;
     
+}
+
+.content3 {
+    width: 100%;
+    min-height: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 20px;
 }
 
 /* ======================= LOGO ======================= */
