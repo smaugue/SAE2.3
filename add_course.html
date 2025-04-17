@@ -36,9 +36,6 @@
                 <h2>Créer un nouveau trajet</h2>
             </div><br><br><br>
 
-            <!-- Message de retour -->
-            <div id="message" style="text-align: center; font-weight: bold;"></div><br>
-
             <form id="form-trajet">
                 <div class="formulaire"><label>Lieu de départ :</label></div>
                 <select name="depart" id="select-depart" required>
@@ -87,6 +84,7 @@
                     arriveeSelect.appendChild(option);
                 });
             } catch (error) {
+                alert('Erreur de chargement des lieux.');
                 console.error('Erreur de chargement des lieux :', error);
             }
         }
@@ -97,9 +95,6 @@
 
             const form = e.target;
             const formData = new FormData(form);
-            const messageDiv = document.getElementById('message');
-
-            messageDiv.textContent = "Envoi en cours...";
 
             try {
                 const response = await fetch('php/add_course.php', {
@@ -110,17 +105,15 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    messageDiv.style.color = 'green';
-                    messageDiv.textContent = data.message;
+                    alert(data.message); //Succès
                     form.reset();
                 } else {
-                    messageDiv.style.color = 'red';
-                    messageDiv.textContent = data.message || "Une erreur est survenue.";
+                    alert("❌ " + data.message); //Erreur logique (ex: pas de véhicule)
                     console.error('Erreur technique :', data.error_code);
                 }
             } catch (error) {
-                messageDiv.style.color = 'red';
-                messageDiv.textContent = "Erreur réseau. Veuillez réessayer.";
+                //mdr l'erreur réseau
+                alert("❌ Erreur réseau. Veuillez réessayer.");
                 console.error('Erreur réseau :', error);
             }
         });
