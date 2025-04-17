@@ -21,7 +21,6 @@
 | Chargement dynamique des lieux | ✅ Oui  | *(via `add_course.html`)*| `get_lieux.php`                                                           | `accueil.js`                   | Fournit les lieux dans les menus déroulants |
 | Chargement dynamique des trajets | ✅ Oui | *(via `join_course.html`, `accueil.html`)* | `get_course.php`                                 | `accueil.js`                         | Met à jour les trajets affichés pour l’utilisateur |
 
----
 
 ## 🗂️ Arborescence du site
 
@@ -62,6 +61,8 @@
 │   ├── register.php
 │   └── registercar.php
 ```
+
+---
 
 # 🗄️ Structure de la Base de Données
 
@@ -127,7 +128,7 @@
 
 
 ## Notes
-- **`Users.Est_admin`** : Cette colonne utilise le type `LOGICAL`, avec les valeurs possibles `TRUE` ou `FALSE`, pour indiquer si l'utilisateur est un administrateur.
+- **`Users.Est_admin`** : Cette colonne utilise le type `BOOL`, avec les valeurs possibles `TRUE` ou `FALSE`, pour indiquer si l'utilisateur est un administrateur.
 - **`Lieux.Type`** : Cette colonne peut avoir les valeurs suivantes :
   - `'formation'` : Lieu dédié à des formations ou des cours.
   - `'loisirs'` : Lieu dédié à des activités de loisirs.
