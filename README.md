@@ -16,7 +16,7 @@ Comment aider les étudiants à organiser efficacement leurs déplacements en co
 
 **Sous problématiques :**
 - Concevoir une structure de base de données adaptée à la gestion des trajets, véhicules, lieux et horaires des étudiants.
-- Assurer la collecte, le stockage et la manipulation sécurisée des données des utilisateurs (étudiants, véhicules, trajets).
+- Assurer la collecte, le stockage et la manipulation des données des utilisateurs (étudiants, véhicules, trajets).
 - Développer une interface web intuitive et réactive en HTML, CSS et PHP, facilitant l'entrée et la modification des informations.
 - Gérer les interactions dynamiques des utilisateurs : ajouts, suppressions et modifications des trajets, véhicules et autres données personnelles.
 - Assurer la mise en relation entre les étudiants en fonction de leurs trajets communs et proposer des solutions de covoiturage adaptées.
@@ -33,7 +33,7 @@ Comment aider les étudiants à organiser efficacement leurs déplacements en co
 
 **Étapes du projet :**
 1. **Mise en place de l'environnement de développement** : Configuration d'un serveur Web non chiffré (Nginx/Apache), installation de PHP et MySQL, mise en place de l'architecture du projet.
-2. **Conception de la base de données** : Création de tables pour les utilisateurs, véhicules, trajets, horaires et lieux. Mise en place de l'API pour interagir avec la base de données.
+2. **Conception de la base de données** : Création de tables pour les utilisateurs, véhicules, trajets, horaires et lieux.
 3. **Développement de l'interface utilisateur** : Conception de pages HTML/CSS pour l'inscription, la gestion des trajets et la mise en relation des étudiants.
 4. **Gestion dynamique des utilisateurs** : Développement des fonctionnalités permettant aux utilisateurs d'ajouter, modifier ou supprimer leurs trajets et leurs informations.
 5. **Test et validation** : Tests fonctionnels et validation du système de mise en relation des étudiants pour organiser des trajets en commun ou du covoiturage.
@@ -50,7 +50,6 @@ L'application a pour but de faciliter l'organisation des trajets en commun entre
 4. **Valider ou invalider des trajets** : les utilisateurs pourront accepter ou refuser un trajet proposé.
 5. **Rejoindre ou quitter un équipage** : possibilité de rejoindre un équipage incomplet ou de quitter un équipage en cours.
 6. **Modifier leurs informations** : les utilisateurs pourront modifier leurs informations à tout moment (ajout d'un véhicule, changement d'horaires, etc.).
-7. **Recevoir des notifications** : des notifications doivent être envoyées aux utilisateurs en cas de modification de leurs trajets ou de nouvelles propositions de covoiturage.
 
 ### Fonctionnalités principales :
 
