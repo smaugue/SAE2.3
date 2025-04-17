@@ -314,6 +314,10 @@ button {
     border-radius: 8px;
 }
 
+.case {
+    margin-left : -47% ;
+}
+
 .middle-text {
     margin-top: 100px;
     text-align: center;

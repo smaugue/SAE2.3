@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <script src="js/is_connected.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer un trajet</title>
 
-    <!-- Préconnecter les sources de Google Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        
-    <!-- Police personnalisée -->
     <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">    
-    <!-- css -->
+
+    <!-- CSS -->
     <link rel="stylesheet" href="accueil.css">
 </head>
 <body class="berline">
@@ -23,31 +22,32 @@
                 <nav>
                     <ul>
                         <li><a href="accueil.html">Accueil</a></li>
-                        <li><a href="add_course.html">Programmer voyage</a></li> <!-- ✅ Nouveau lien -->
-                        <li><a href="join_course.html">Rechercher voyage</a></li> <!-- ✅ Nouveau lien -->
-                        <li><a href="registercar.html">Ajouter un véicule</a></li>
+                        <li><a href="add_course.html">Programmer voyage</a></li>
+                        <li><a href="join_course.html">Rechercher voyage</a></li>
+                        <li><a href="registercar.html">Ajouter un véhicule</a></li>
                         <li><a href="propos.html">À propos</a></li>
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="php/logout.php">Se déconnecter</a></li>
                     </ul>
                 </nav>
             </div>
+
             <div class="log">
-            <h2>Crééer un nouveau trajet</h2></div><br><br><br>
+                <h2>Créer un nouveau trajet</h2>
+            </div><br><br><br>
 
-                <form action="php/add_course.php" method="POST">
+            <form id="form-trajet">
+                <div class="formulaire"><label>Lieu de départ :</label></div>
+                <select name="depart" id="select-depart" required>
+                    <option value="">Chargement...</option>
+                </select><br><br>
 
-                    <div class="formulaire"><label>Lieu de départ :</label></div>
-                    <select name="depart" id="select-depart" required>
-                        <option value="">Chargement...</option>
-                    </select><br><br>
+                <div class="formulaire"><label>Lieu d’arrivée :</label></div>
+                <select name="arrivee" id="select-arrivee" required>
+                    <option value="">Chargement...</option>
+                </select><br><br>
 
-                    <div class="formulaire"><label>Lieu d’arrivée :</label></div>
-                    <select name="arrivee" id="select-arrivee" required>
-                        <option value="">Chargement...</option>
-                    </select><br><br>
-                    
-                    <div class="formulaire">
+                <div class="formulaire">
                     <label>Date et heure de départ :</label><br>
                     <input type="datetime-local" name="dh_depart" required><br><br>
 
@@ -57,45 +57,70 @@
                     <label>Prix (€)* :</label><br>
                     <input type="number" name="prix" min="0" required><br><br>
 
-                    <input type="submit" value="Créer le trajet"></div>
-                </form>
-            
+                    <input type="submit" value="Créer le trajet">
+                </div>
+            </form>
         </div>
     </div>
 
     <script>
-        // Fonction pour charger les lieux depuis le serveur
+        // Charger les lieux dynamiquement
         async function chargerLieux() {
-            const response = await fetch('php/get_lieux.php');
-            const lieux = await response.json();
+            try {
+                const response = await fetch('php/get_lieux.php');
+                const lieux = await response.json();
 
-            const departSelect = document.getElementById('select-depart');
-            const arriveeSelect = document.getElementById('select-arrivee');
+                const departSelect = document.getElementById('select-depart');
+                const arriveeSelect = document.getElementById('select-arrivee');
 
-            // On vide les listes avant de les remplir
-            departSelect.innerHTML = '<option value="">-- Choisir --</option>';
-            arriveeSelect.innerHTML = '<option value="">-- Choisir --</option>';
+                departSelect.innerHTML = '<option value="">-- Choisir --</option>';
+                arriveeSelect.innerHTML = '<option value="">-- Choisir --</option>';
 
-
-            // On ajoute les options pour chaque lieu
-            lieux.forEach(lieu => {
-                try {
-                const option = document.createElement('option');
-                option.value = lieu.id_lieux;
-                option.textContent = `${lieu.Nom} (${lieu.Ville})`;
-                departSelect.appendChild(option.cloneNode(true));
-                arriveeSelect.appendChild(option);
-                } catch (error) {
-                    console.error('Erreur lors de l\'ajout de l\'option :', error);
-                }
-            });
+                lieux.forEach(lieu => {
+                    const option = document.createElement('option');
+                    option.value = lieu.id_lieux;
+                    option.textContent = `${lieu.Nom} (${lieu.Ville})`;
+                    departSelect.appendChild(option.cloneNode(true));
+                    arriveeSelect.appendChild(option);
+                });
+            } catch (error) {
+                alert('Erreur de chargement des lieux.');
+                console.error('Erreur de chargement des lieux :', error);
+            }
         }
+
+        // Gérer la soumission du formulaire
+        document.getElementById('form-trajet').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('php/add_course.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert(data.message); //Succès
+                    form.reset();
+                } else {
+                    alert("❌ " + data.message); //Erreur logique (ex: pas de véhicule)
+                    console.error('Erreur technique :', data.error_code);
+                }
+            } catch (error) {
+                //mdr l'erreur réseau
+                alert("❌ Erreur réseau. Veuillez réessayer.");
+                console.error('Erreur réseau :', error);
+            }
+        });
 
         chargerLieux();
     </script>
 
-    <!-- Script JS -->
-    <script src="js/accueil.js"></script
-
+    <script src="js/accueil.js"></script>
 </body>
 </html>
