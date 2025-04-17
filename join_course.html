@@ -88,6 +88,9 @@
                     <option value="0">Dimanche</option>
                 </select><br>
 
+                <label for="self_courses">Mes courses :</label><br>
+                <input type="checkbox" id="self_courses" name="self_courses"><br><br>
+
                 <button onclick="chargerCourses()">Rechercher</button>
             </div>
 
@@ -98,6 +101,7 @@
                 function chargerCourses() {
                     const ville = document.getElementById('ville').value.trim().toLowerCase();  // Récupère la ville de départ
                     const jour = document.getElementById('jour').value;  // Récupère le jour sélectionné
+                    const selfCourses = document.getElementById('self_courses').checked;  // Vérifie si l'utilisateur veut voir ses propres courses
             
                     fetch('php/get_courses.php')  // Requête pour récupérer les courses disponibles
                         .then(response => response.json())  // Réponse sous forme de JSON
@@ -111,13 +115,20 @@
                 }
             
                 // Fonction pour afficher les courses après application des filtres
-                function afficherCourses(courses, ville, jour) {
+                function afficherCourses(courses, ville, jour, selfCourses) {
                     const list = document.getElementById('course-list');
                     list.innerHTML = '';  // Réinitialise la liste de courses
             
                     // On attribue un score à chaque course en fonction des filtres
                     const coursesScored = courses.map(course => {
                         let score = 0;
+
+                        // Vérification si l'utilisateur veut voir ses propres courses
+                        if (selfCourses && course.is_conducteur) {
+                            score += 3;  // Ajoute 3 point si c'est la course de l'utilisateur (priorétise leur affichage)
+                        } else if (selfCourses && !course.is_conducteur) {
+                            return null;  // Ignore les courses qui ne sont pas celles de l'utilisateur
+                        }
             
                         // Vérification si la course correspond à la ville de départ
                         if (ville && course.ville_depart.toLowerCase().includes(ville)) {
