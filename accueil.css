@@ -12,22 +12,25 @@ body {
 /* ======================= WRAPPER ======================= */
 .wrapper {
     width: 100vw;
-    height: 100vh;
-    background-image: url('image/fond.png');
-    background-size: cover;
-    background-position: center;
+    height: auto;
     padding: 30px;
     overflow: hidden;
 }
 
-.wrapper2 {
-    width: 100vw;
-    height: auto;
+.car{
     background-image: url('image/fond.png');
     background-size: cover;
     background-position: center;
-    padding: 30px;
-    overflow: hidden;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.bus {
+    background-image: url('image/Bus.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 /* ======================= CONTENU SOMBRE ======================= */
