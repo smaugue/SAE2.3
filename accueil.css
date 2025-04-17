@@ -12,22 +12,20 @@ body {
 /* ======================= WRAPPER ======================= */
 .wrapper {
     width: 100vw;
-    height: 100vh;
-    background-image: url('image/fond.png');
+    height: auto;
     background-size: cover;
     background-position: center;
     padding: 30px;
     overflow: hidden;
+    background-attachment: fixed;
 }
 
-.wrapper2 {
-    width: 100vw;
-    height: auto;
+.car{
     background-image: url('image/fond.png');
-    background-size: cover;
-    background-position: center;
-    padding: 30px;
-    overflow: hidden;
+}
+
+.bus {
+    background-image: url('image/Bus.png');
 }
 
 /* ======================= CONTENU SOMBRE ======================= */

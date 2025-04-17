@@ -15,7 +15,7 @@
     <!-- css -->
     <link rel="stylesheet" href="accueil.css">
 </head>
-<body>
+<body class="car">
     <div class="wrapper">
         <div class="content">
             <div class="menu">
@@ -63,40 +63,39 @@
         </div>
     </div>
 
-<script>
-    // Fonction pour charger les lieux depuis le serveur
-    async function chargerLieux() {
-        const response = await fetch('php/get_lieux.php');
-        print(response);
-        const lieux = await response.json();
+    <script>
+        // Fonction pour charger les lieux depuis le serveur
+        async function chargerLieux() {
+            const response = await fetch('php/get_lieux.php');
+            const lieux = await response.json();
 
-        const departSelect = document.getElementById('select-depart');
-        const arriveeSelect = document.getElementById('select-arrivee');
+            const departSelect = document.getElementById('select-depart');
+            const arriveeSelect = document.getElementById('select-arrivee');
 
-        // On vide les listes avant de les remplir
-        departSelect.innerHTML = '<option value="">-- Choisir --</option>';
-        arriveeSelect.innerHTML = '<option value="">-- Choisir --</option>';
+            // On vide les listes avant de les remplir
+            departSelect.innerHTML = '<option value="">-- Choisir --</option>';
+            arriveeSelect.innerHTML = '<option value="">-- Choisir --</option>';
 
 
-        // On ajoute les options pour chaque lieu
-        lieux.forEach(lieu => {
-            try {
-            const option = document.createElement('option');
-            option.value = lieu.id_lieux;
-            option.textContent = `${lieu.Nom} (${lieu.Ville})`;
-            departSelect.appendChild(option.cloneNode(true));
-            arriveeSelect.appendChild(option);
-            } catch (error) {
-                console.error('Erreur lors de l\'ajout de l\'option :', error);
-            }
-        });
-    }
+            // On ajoute les options pour chaque lieu
+            lieux.forEach(lieu => {
+                try {
+                const option = document.createElement('option');
+                option.value = lieu.id_lieux;
+                option.textContent = `${lieu.Nom} (${lieu.Ville})`;
+                departSelect.appendChild(option.cloneNode(true));
+                arriveeSelect.appendChild(option);
+                } catch (error) {
+                    console.error('Erreur lors de l\'ajout de l\'option :', error);
+                }
+            });
+        }
 
-    chargerLieux();
-</script>
+        chargerLieux();
+    </script>
 
-<!-- Script JS -->
-<script src="js/accueil.js"></script
+    <!-- Script JS -->
+    <script src="js/accueil.js"></script
 
 </body>
 </html>
