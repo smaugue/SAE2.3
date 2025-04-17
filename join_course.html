@@ -106,7 +106,7 @@
                     fetch('php/get_courses.php')  // Requête pour récupérer les courses disponibles
                         .then(response => response.json())  // Réponse sous forme de JSON
                         .then(courses => {
-                            afficherCourses(courses, ville, jour);  // Affiche les courses filtrées
+                            afficherCourses(courses, ville, jour, selfCourses);  // Affiche les courses filtrées
                         })
                         .catch(err => {
                             console.error("Erreur lors du chargement des courses :", err);
@@ -126,8 +126,6 @@
                         // Vérification si l'utilisateur veut voir ses propres courses
                         if (selfCourses && course.is_conducteur) {
                             score += 3;  // Ajoute 3 point si c'est la course de l'utilisateur (priorétise leur affichage)
-                        } else if (selfCourses && !course.is_conducteur) {
-                            return null;  // Ignore les courses qui ne sont pas celles de l'utilisateur
                         }
             
                         // Vérification si la course correspond à la ville de départ
