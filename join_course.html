@@ -135,6 +135,8 @@
                     
                         if (selfCourses && course.is_conducteur) { //on priorétise un max ses courses si l'option est cochée
                             score += 3;
+                        } else {
+                            return { ...course, score: 0 }; // skip
                         }
                     
                         if (ville && course.ville_depart.toLowerCase().includes(ville)) {
