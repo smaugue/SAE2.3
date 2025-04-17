@@ -86,7 +86,7 @@ if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === 0) {
             </div>
 
             <!-- Script JS -->
-            <script src="accueil.js"></script>
+            <script src="js/accueil.js"></script>
 
         </body>
     </html>
