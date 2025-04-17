@@ -33,6 +33,16 @@ body {
     background-attachment: fixed;
 }
 
+.berline {
+    background-image: url('image/Berline.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+
 /* ======================= CONTENU SOMBRE ======================= */
 .content {
     width: 100%;
