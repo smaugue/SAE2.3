@@ -28,6 +28,7 @@ body {
     background-position: center;
     padding: 30px;
     overflow: hidden;
+    background-attachment: fixed;
 }
 
 /* ======================= CONTENU SOMBRE ======================= */
