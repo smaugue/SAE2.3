@@ -1,3 +1,1 @@
-(function() {
-    fetch('php/is_connected.php')
-})();
+fetch('php/is_connected.php');
