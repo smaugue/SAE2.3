@@ -76,6 +76,10 @@
                 <label for="ville">Ville de départ :</label><br>
                 <input class="select2" type="text" id="ville" name="ville"><br><br>
 
+                <label for="ville_arrivee">Ville ou lieu d'arrivée :</label><br>
+                <input class="select2" type="text" id="ville_arrivee" name="ville_arrivee"><br><br>
+
+
                 <label for="jour">Jour :</label><br>
                 <select class="select2" id="jour" name="jour">
                     <option value="">-- Tous les jours --</option>
@@ -99,51 +103,55 @@
             <script>
                 // Fonction pour charger les courses disponibles avec les filtres appliqués
                 function chargerCourses() {
-                    const ville = document.getElementById('ville').value.trim().toLowerCase();  // Récupère la ville de départ
-                    const jour = document.getElementById('jour').value;  // Récupère le jour sélectionné
-                    const selfCourses = document.getElementById('self_courses').checked;  // Vérifie si l'utilisateur veut voir ses propres courses
-            
-                    fetch('php/get_courses.php')  // Requête pour récupérer les courses disponibles
-                        .then(response => response.json())  // Réponse sous forme de JSON
+                    const ville = document.getElementById('ville').value.trim().toLowerCase();
+                    const villeArrivee = document.getElementById('ville_arrivee').value.trim().toLowerCase(); // 🔹 Nouveau
+                    const jour = document.getElementById('jour').value;
+                    const selfCourses = document.getElementById('self_courses').checked;
+                
+                    fetch('php/get_courses.php')
+                        .then(response => response.json())
                         .then(courses => {
-                            afficherCourses(courses, ville, jour, selfCourses);  // Affiche les courses filtrées
+                            afficherCourses(courses, ville, villeArrivee, jour, selfCourses); // 🔹 On ajoute la ville d'arrivée
                         })
                         .catch(err => {
                             console.error("Erreur lors du chargement des courses :", err);
-                            document.getElementById('course-list').innerHTML = "<p style='color:red;'>Erreur lors du chargement des courses.</p>";  // Gestion des erreurs
+                            document.getElementById('course-list').innerHTML = "<p style='color:red;'>Erreur lors du chargement des courses.</p>";
                         });
                 }
-            
-                // Fonction pour afficher les courses après application des filtres
-                function afficherCourses(courses, ville, jour, selfCourses) {
+                
+                function afficherCourses(courses, ville, villeArrivee, jour, selfCourses) {
                     const list = document.getElementById('course-list');
-                    list.innerHTML = '';  // Réinitialise la liste de courses
-            
-                    // On attribue un score à chaque course en fonction des filtres
+                    list.innerHTML = '';
+                
                     const coursesScored = courses.map(course => {
                         let score = 0;
-
-                        // Vérification si l'utilisateur veut voir ses propres courses
+                    
                         if (selfCourses && course.is_conducteur) {
-                            score += 3;  // Ajoute 3 point si c'est la course de l'utilisateur (priorétise leur affichage)
+                            score += 3;
                         }
-            
-                        // Vérification si la course correspond à la ville de départ
+                    
                         if (ville && course.ville_depart.toLowerCase().includes(ville)) {
                             score += 1;
                         }
-            
-                        // Vérification si la course correspond au jour sélectionné
+                    
+                        if (villeArrivee && (
+                            course.ville_arrivee.toLowerCase().includes(villeArrivee) ||
+                            course.arrivee.toLowerCase().includes(villeArrivee)
+                        )) {
+                            score += 1;
+                        }
+                    
                         if (jour !== '') {
                             const date = new Date(course.DH_départ);
-                            const jsJour = date.getDay();  // 0 = dimanche
+                            const jsJour = date.getDay();
                             if (parseInt(jour) === jsJour) {
                                 score += 1;
                             }
                         }
-            
-                        return { ...course, score };  // Retourne la course avec son score
+                    
+                        return { ...course, score };
                     });
+
             
                     // Tri des courses en fonction du score et de la date
                     coursesScored.sort((a, b) => {
