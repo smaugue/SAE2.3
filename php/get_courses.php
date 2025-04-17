@@ -13,6 +13,7 @@ $sql = "
         c.DH_départ,
         c.DH_arrive,
         c.Nb_place_disponible,
+        c.Prix,
         l1.Nom AS depart,
         l1.Ville AS ville_depart,
         l2.Nom AS arrivee,

@@ -37,8 +37,8 @@
                         <li><a href="#">Accueil</a></li>
                         <li><a href="#">À propos</a></li>
                         <li><a href="#">Contact</a></li>
-                        <li><a href="page1.php">Programmer voyage</a></li> <!-- ✅ Nouveau lien -->
-                        <li><a href="page2.php">Rechercher voyage</a></li> <!-- ✅ Nouveau lien -->
+                        <li><a href="page1.php">Programmer voyage</a></li>
+                        <li><a href="page2.php">Rechercher voyage</a></li>
                     </ul>
                 </nav>
             </div>
