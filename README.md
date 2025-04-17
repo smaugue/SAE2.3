@@ -72,7 +72,7 @@ L'application a pour but de faciliter l'organisation des trajets en commun entre
 1. **Application web fonctionnelle** avec une interface de gestion des trajets et de covoiturage.
 2. **Documentation technique** détaillant l'architecture du projet, la structure de la base de données, et les fonctionnalités de l'application.
 3. **Documentation utilisateur** en français et en anglais pour former les utilisateurs à l'utilisation de l'application.
-4. **Code source** versionné et hébergé sur GutHub.
+4. **Code source** versionné et hébergé sur GitHub.
 
 
 # Structure du site
