@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des courses</title>
@@ -9,15 +8,13 @@
     <!-- User connecté ? -->
     <script src="js/is_connected.js"></script>
 
-     <!-- Préconnecter les sources de Google Fonts -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- 
-     <!-- Police personnalisée -->
-     <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
- 
-     <!-- css -->
-     <link rel="stylesheet" href="accueil.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="accueil.css">
 
     <style>
         body {
@@ -52,8 +49,9 @@
         <div class="content2">
 
             <!-- Titre principal -->
-             <br><div class="log">
-                <h2>Courses disponibles</h2></div><br>
+            <br><div class="log">
+                <h2>Courses disponibles</h2>
+            </div><br>
 
             <!-- Menu Burger -->
             <div class="menu">
@@ -67,18 +65,17 @@
                         <li><a href="propos.html">À propos</a></li>
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="php/logout.php">Se déconnecter</a></li>
+                    </ul>
                 </nav>
             </div>
 
-
-
+            <!-- Filtres -->
             <div class="filters">
                 <label for="ville">Ville de départ :</label><br>
                 <input class="select2" type="text" id="ville" name="ville"><br><br>
 
                 <label for="ville_arrivee">Ville ou lieu d'arrivée :</label><br>
                 <input class="select2" type="text" id="ville_arrivee" name="ville_arrivee"><br><br>
-
 
                 <label for="jour">Jour :</label><br>
                 <select class="select2" id="jour" name="jour">
@@ -92,26 +89,30 @@
                     <option value="0">Dimanche</option>
                 </select><br><br>
 
+                <label for="prix">Prix maximum (€) :</label><br>
+                <input class="select2" type="number" id="prix" name="prix" min="0"><br><br>
+
                 <label for="self_courses">Mes courses :</label><br>
                 <input class="case" type="checkbox" id="self_courses" name="self_courses"><br><br>
 
                 <button onclick="chargerCourses()">Rechercher</button>
             </div>
 
+            <!-- Liste des courses -->
             <div id="course-list"></div>
 
             <script>
-                // Fonction pour charger les courses disponibles avec les filtres appliqués
                 function chargerCourses() {
                     const ville = document.getElementById('ville').value.trim().toLowerCase();
                     const villeArrivee = document.getElementById('ville_arrivee').value.trim().toLowerCase();
                     const jour = document.getElementById('jour').value;
                     const selfCourses = document.getElementById('self_courses').checked;
-                
+                    const prix = document.getElementById('prix').value.trim();
+
                     fetch('php/get_courses.php')
                         .then(response => response.json())
                         .then(courses => {
-                            afficherCourses(courses, ville, villeArrivee, jour, selfCourses);
+                            afficherCourses(courses, ville, villeArrivee, jour, selfCourses, prix);
                         })
                         .catch(err => {
                             console.error("Erreur lors du chargement des courses :", err);
@@ -119,66 +120,72 @@
                         });
                 }
 
-                function afficherCourses(courses, ville, villeArrivee, jour, selfCourses) {
+                function afficherCourses(courses, ville, villeArrivee, jour, selfCourses, prix) {
                     const list = document.getElementById('course-list');
                     list.innerHTML = '';
-                
-                    const coursesScored = courses.map(course => {
-                        let score = 0;
-                    
-                        if (selfCourses && course.is_conducteur) { //on priorétise un max ses courses si l'option est cochée
-                            score += 3;
-                        }
-                    
-                        if (ville && course.ville_depart.toLowerCase().includes(ville)) {
-                            score += 1;
-                        }
-                    
-                        if (villeArrivee && (
-                            course.ville_arrivee.toLowerCase().includes(villeArrivee) ||
-                            course.arrivee.toLowerCase().includes(villeArrivee)
-                        )) {
-                            score += 1;
-                        }
-                    
-                        if (jour !== '') {
-                            const date = new Date(course.DH_départ);
-                            const jsJour = date.getDay();
-                            if (parseInt(jour) === jsJour) {
+
+                    const prixMax = parseFloat(prix);
+
+                    const coursesScored = courses
+                        .filter(course => {
+                            if (!isNaN(prixMax) && parseFloat(course.prix) > prixMax) {
+                                return false;
+                            }
+                            return true;
+                        })
+                        .map(course => {
+                            let score = 0;
+
+                            if (selfCourses && course.is_conducteur) {
+                                score += 3;
+                            }
+
+                            if (ville && course.ville_depart.toLowerCase().includes(ville)) {
                                 score += 1;
                             }
-                        }
-                    
-                        return { ...course, score };
-                    });
 
-            
-                    // Tri des courses en fonction du score et de la date
+                            if (villeArrivee && (
+                                course.ville_arrivee.toLowerCase().includes(villeArrivee) ||
+                                course.arrivee.toLowerCase().includes(villeArrivee)
+                            )) {
+                                score += 1;
+                            }
+
+                            if (jour !== '') {
+                                const date = new Date(course.DH_départ);
+                                const jsJour = date.getDay();
+                                if (parseInt(jour) === jsJour) {
+                                    score += 1;
+                                }
+                            }
+
+                            return { ...course, score };
+                        });
+
                     coursesScored.sort((a, b) => {
                         if (b.score !== a.score) return b.score - a.score;
                         return new Date(a.DH_départ) - new Date(b.DH_départ);
                     });
-            
-                    // Si aucune course n'est trouvée
+
                     if (coursesScored.length === 0) {
                         list.innerHTML = '<p>Aucune course trouvée.</p>';
                         return;
                     }
-                    // Affichage des courses filtrées
+
                     coursesScored.forEach(course => {
                         const div = document.createElement('div');
                         div.className = 'course' + (course.score > 0 ? ' pertinent' : '');
-                    
+
                         const dateDepart = new Date(course.DH_départ).toLocaleString();
                         const dateArrivee = new Date(course.DH_arrive).toLocaleString();
-                    
+
                         let html = `
                             <p><strong>Départ :</strong> ${course.depart} (${course.ville_depart})<br><strong>Date :</strong> ${dateDepart}</p>
                             <p><strong>Arrivée :</strong> ${course.arrivee}<br><strong>Date :</strong> ${dateArrivee}</p>
                             <p><strong>Places dispo :</strong> ${course.Nb_place_disponible}</p>
                             <p><strong>Prix :</strong> ${course.prix}</p>
                         `;
-                    
+
                         if (course.is_conducteur) {
                             html += `<button onclick="supprimerCourse(${course.id_course})">Supprimer</button>`;
                         } else if (course.is_member) {
@@ -186,25 +193,23 @@
                         } else {
                             html += `<button onclick="rejoindreCourse(${course.id_course})">Rejoindre</button>`;
                         }
-                    
+
                         div.innerHTML = html;
                         list.appendChild(div);
                     });
-
                 }
-            
-                // Fonction pour rejoindre une course
+
                 function rejoindreCourse(id_course) {
                     fetch('php/join_course.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: new URLSearchParams({ id_course })  // Passe l'ID de la course pour l'inscription
+                        body: new URLSearchParams({ id_course })
                     })
                     .then(res => res.json())
                     .then(result => {
-                        alert(result.message);  // Affiche le message de retour
+                        alert(result.message);
                         if (result.success) {
-                            chargerCourses();  // Recharge les courses après l'inscription
+                            chargerCourses();
                         }
                     })
                     .catch(err => {
@@ -212,19 +217,18 @@
                         alert("Une erreur est survenue.");
                     });
                 }
-            
-                // Fonction pour quitter une course (désinscription)
+
                 function quitterCourse(id_course) {
                     fetch('php/leave_course.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: new URLSearchParams({ id_course })  // Passe l'ID de la course pour la désinscription
+                        body: new URLSearchParams({ id_course })
                     })
                     .then(res => res.json())
                     .then(result => {
-                        alert(result.message);  // Affiche le message de retour
+                        alert(result.message);
                         if (result.success) {
-                            chargerCourses();  // Recharge les courses après la désinscription
+                            chargerCourses();
                         }
                     })
                     .catch(err => {
@@ -232,19 +236,18 @@
                         alert("Une erreur est survenue.");
                     });
                 }
-            
-                // Fonction pour supprimer une course (pour le conducteur)
+
                 function supprimerCourse(id_course) {
                     fetch('php/delete_course.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: new URLSearchParams({ id_course })  // Passe l'ID de la course pour la suppression
+                        body: new URLSearchParams({ id_course })
                     })
                     .then(res => res.json())
                     .then(result => {
-                        alert(result.message);  // Affiche le message de retour
+                        alert(result.message);
                         if (result.success) {
-                            chargerCourses();  // Recharge les courses après la suppression
+                            chargerCourses();
                         }
                     })
                     .catch(err => {
@@ -252,12 +255,10 @@
                         alert("Une erreur est survenue.");
                     });
                 }
-            
-                // Chargement initial des courses
+
+                // Chargement initial
                 chargerCourses();
             </script>
-
-
         </div>
     </div>
 
