@@ -109,7 +109,7 @@
                     const villeArrivee = document.getElementById('ville_arrivee').value.trim().toLowerCase();
                     const jour = document.getElementById('jour').value;
                     const selfCourses = document.getElementById('self_courses').checked;
-                    const prix  = document.getElementById('Prix').value.trim().toLowerCase();
+                    const prix  = document.getElementById('prix').value.trim();
                 
                     fetch('php/get_courses.php')
                         .then(response => response.json())
