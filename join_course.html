@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des courses</title>
@@ -9,15 +8,13 @@
     <!-- User connecté ? -->
     <script src="js/is_connected.js"></script>
 
-     <!-- Préconnecter les sources de Google Fonts -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- 
-     <!-- Police personnalisée -->
-     <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
- 
-     <!-- css -->
-     <link rel="stylesheet" href="css/accueil.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="accueil.css">
 
     <style>
         body {
@@ -52,8 +49,9 @@
         <div class="content2">
 
             <!-- Titre principal -->
-             <br><div class="log">
-                <h2>Courses disponibles</h2></div><br>
+            <br><div class="log">
+                <h2>Courses disponibles</h2>
+            </div><br>
 
             <!-- Menu Burger -->
             <div class="menu">
@@ -67,20 +65,17 @@
                         <li><a href="propos.html">À propos</a></li>
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="php/logout.php">Se déconnecter</a></li>
+                    </ul>
                 </nav>
             </div>
 
-
-
+            <!-- Filtres -->
             <div class="filters">
                 <label for="ville">Ville de départ :</label><br>
                 <input class="select2" type="text" id="ville" name="ville"><br><br>
 
                 <label for="ville_arrivee">Ville ou lieu d'arrivée :</label><br>
                 <input class="select2" type="text" id="ville_arrivee" name="ville_arrivee"><br><br>
-
-                <label for="prix">Prix maximum (€) :</label><br>
-                <input class="select2" type="number" id="prix" name="prix" min="0"><br><br>
 
                 <label for="jour">Jour :</label><br>
                 <select class="select2" id="jour" name="jour">
@@ -94,12 +89,16 @@
                     <option value="0">Dimanche</option>
                 </select><br><br>
 
+                <label for="prix">Prix maximum (€) :</label><br>
+                <input class="select2" type="number" id="prix" name="prix" min="0"><br><br>
+
                 <label for="self_courses">Mes courses :</label><br>
                 <input class="case" type="checkbox" id="self_courses" name="self_courses"><br><br>
 
                 <button onclick="chargerCourses()">Rechercher</button>
             </div>
 
+            <!-- Liste des courses -->
             <div id="course-list"></div>
 
             <script>
@@ -268,8 +267,6 @@
                 // Chargement initial des courses
                 chargerCourses();
             </script>
-
-
         </div>
     </div>
 
