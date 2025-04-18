@@ -1,4 +1,7 @@
 <?php
+
+//on vérifie si l'utilisateur est connecté
+//puis on se connecte à la base de données
 require_once 'is_connected.php';
 require_once 'db_connect.php';
 
@@ -6,6 +9,8 @@ header('Content-Type: application/json');
 
 $user_id = $_SESSION['user_id'] ?? null;
 
+
+//requete pour récupérer les courses disponibles
 $sql = "
     SELECT
         c.id_course, 
@@ -23,10 +28,14 @@ $sql = "
     JOIN Lieux l2 ON c.id_lieux_arrivé = l2.id_lieux
     WHERE c.Nb_place_disponible > 0
 ";
+
+//on envoie la requete à la base de données
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+//de même, on récupère les courses de l'utilisateur dans la table Equipage
 $sqlEquipage = "
     SELECT id_course
     FROM Equipage
@@ -36,7 +45,7 @@ $stmtEquipage = $pdo->prepare($sqlEquipage);
 $stmtEquipage->execute(['user_id' => $user_id]);
 
 $equipageCourses = $stmtEquipage->fetchAll(PDO::FETCH_COLUMN);
-$equipageSet = array_flip($equipageCourses); // Pour une recherche rapide
+$equipageSet = array_flip($equipageCourses);
 
 // Ajout des flags is_conducteur et is_member
 foreach ($courses as &$course) {
@@ -44,5 +53,6 @@ foreach ($courses as &$course) {
     $course['is_member'] = isset($equipageSet[$course['id_course']]);
 }
 
+//on renvoie les courses au format JSON
 echo json_encode($courses);
 ?>

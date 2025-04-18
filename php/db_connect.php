@@ -1,8 +1,8 @@
 <?php
 $host = 'mysql_serv';
 $dbname = 'tvermot_05';
-$user = 'tvermot'; // Votre nom d'utilisateur mysql.
-$password = 'Admintvermot25'; // Votre mot de passe mysql
+$user = 'tvermot';
+$password = 'Admintvermot25';
 $conn = mysqli_connect($host, $user, $password, $dbname);
 
 if (!$conn) {

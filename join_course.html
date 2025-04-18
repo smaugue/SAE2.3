@@ -17,7 +17,7 @@
      <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
  
      <!-- css -->
-     <link rel="stylesheet" href="accueil.css">
+     <link rel="stylesheet" href="css/accueil.css">
 
     <style>
         body {
@@ -111,6 +111,7 @@
                     const selfCourses = document.getElementById('self_courses').checked;
                     const prix  = document.getElementById('prix').value;
                 
+                    //on récupère la réponse JSON de la requête PHP
                     fetch('php/get_courses.php')
                         .then(response => response.json())
                         .then(courses => {
@@ -126,6 +127,8 @@
                     const list = document.getElementById('course-list');
                     list.innerHTML = '';
                 
+                    // Filtrage des courses en fonction des critères
+                    //plus le score est élevé, plus la course est pertinente
                     const coursesScored = courses.map(course => {
                         let score = 0;
 
@@ -133,8 +136,8 @@
                             return { ...course, score: 0 }; // skip car trp cher
                         }
                     
-                        if (selfCourses && course.is_conducteur) { //on priorétise un max ses courses si l'option est cochée
-                            score += 3;
+                        if (selfCourses && course.is_conducteur) {
+                            score += 1;
                         } else {
                             return { ...course, score: 0 }; // skip
                         }
