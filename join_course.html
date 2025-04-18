@@ -130,15 +130,14 @@
                     //plus le score est élevé, plus la course est pertinente
                     const coursesScored = courses.map(course => {
                         let score = 0;
-
-                        if (prix !== "" && parseFloat(course.Prix) >= parseFloat(prix)) {
-                            return { ...course, score: 0 }; // skip car trp cher
+                                        
+                        if (prix !== "" && parseFloat(course.Prix) > parseFloat(prix)) {
+                            return { ...course, score: 0 };
                         }
                     
-                        if (selfCourses && course.is_conducteur) {
-                            score += 1;
-                        } else {
-                            return { ...course, score: 0 }; // skip
+                        if (selfCourses) {
+                            if (course.is_conducteur) score += 1;
+                            else return { ...course, score: 0 }; // skip si on veut que ses propres courses
                         }
                     
                         if (ville && course.ville_depart.toLowerCase().includes(ville)) {
@@ -159,9 +158,10 @@
                                 score += 1;
                             }
                         }
-
+                    
                         return { ...course, score };
                     });
+
 
             
                     // Tri des courses en fonction du score et de la date
