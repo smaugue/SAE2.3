@@ -217,4 +217,4 @@ L'application a pour but de faciliter l'organisation des trajets en commun entre
 
  # Menu Administrateur
 
- Le menu administrateur est accésible via `/menu.php`. Il permet d'importer des utilisateur depuis un CSV.
+ Le menu administrateur est accésible via `/menu.php`. Il permet d'importer des utilisateurs depuis un CSV.
