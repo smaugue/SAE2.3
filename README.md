@@ -214,3 +214,7 @@ L'application a pour but de faciliter l'organisation des trajets en commun entre
   - `DATETIME` : Date et heure, au format `YYYY-MM-DD HH:MM:SS`.
   - `DATE` : Date, au format `YYYY-MM-DD`.
   - `LOGICAL` : Valeur logique, qui peut être `TRUE` ou `FALSE` (par exemple, pour `Est_admin`).
+
+ # Menu Administrateur
+
+ Le menu administrateur est accésible via `/menu.php`. Il permet d'importer des utilisateurs depuis un CSV.
