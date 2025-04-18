@@ -18,7 +18,7 @@ body {
 }
 
 .car{
-    background-image: url('image/fond.png');
+    background-image: url('../image/fond.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -26,7 +26,7 @@ body {
 }
 
 .bus {
-    background-image: url('image/Bus.png');
+    background-image: url('../image/Bus.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -34,7 +34,7 @@ body {
 }
 
 .berline {
-    background-image: url('image/Berline.png');
+    background-image: url('../image/Berline.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
