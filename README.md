@@ -91,8 +91,8 @@ L'application a pour but de faciliter l'organisation des trajets en commun entre
 | À propos du site               | ✅ Oui  | `propos.html`            |                                                                           | `accueil.js`, `accueil.css`    | Présentation du projet |
 | Page de contact                | ✅ Oui  | `contact.html`           |                                                                           | `accueil.js`, `accueil.css`    | Informations ou formulaire de contact |
 | Page administrateur            | ✅ Oui  | `menu.php`               | `import_user.php`, `is_admin.php`                                        | `accueil.js`, `accueil.css`     | Importation d'utilisateurs via CSV (admin) |
-| Chargement dynamique des lieux | ✅ Oui  | *(via `add_course.html`)*| `get_lieux.php`                                                           | `accueil.js`                   | Fournit les lieux dans les menus déroulants |
-| Chargement dynamique des trajets | ✅ Oui | *(via `join_course.html`, `accueil.html`)* | `get_course.php`                                 | `accueil.js`                         | Met à jour les trajets affichés pour l’utilisateur |
+| Chargement dynamique des lieux | ✅ Oui  | *(via `add_course.html`)*| `get_lieux.php`                                                           |                    | Fournit les lieux dans les menus déroulants |
+| Chargement dynamique des trajets | ✅ Oui | *(via `join_course.html`)* | `get_course.php`                                 |                          | Met à jour les trajets affichés pour l’utilisateur |
 
 
 ## 🗂️ Arborescence du site
